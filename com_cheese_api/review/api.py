@@ -34,4 +34,55 @@ class User(Resource):
         except Exception as e:
             return {'message': 'User not found'}, 404
 
-    
+
+    @staticmethod
+    def update():
+        args = parser.parse_args()
+        print(f'User {args["id"]} updated ')
+        return {'code': 0, 'message': 'SUCCESS'}, 200
+
+
+    @staticmethod
+    def delete():
+        args = parser.parse_args()
+        print(f'User {args["id"]} deleted')
+        return {'code': 0, 'message': 'SUCCESS'}, 200
+
+
+
+    class Users(Resource):
+
+        def post(self):
+            ud = UserDao()
+            ud.insert_many('users')
+
+        def get(self):
+            print('================ 10 ================')
+            data = UserDao.find_all()
+            return data, 200
+
+class Auth(Resource):
+
+    def post(self):
+        body = request.get_json()
+        user = UserDto(**body)
+        UserDao.save(user)
+        id = user.userid
+
+        return {'id': str(id)}, 200
+
+
+class Access(Resource):
+    def __init__(self):
+        print('================ 5 ================')
+    def post(self):
+        print('================ 6 ================')
+        args = parser.parse_args()
+        user = UserVo()
+        user.userid = args.userid
+        user.password = args.password
+        print(user.userid)
+        print(user.password)
+        data = UserDao.login(user)
+        return data[0], 200
+        

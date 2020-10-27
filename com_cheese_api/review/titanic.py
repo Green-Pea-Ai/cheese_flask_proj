@@ -49,7 +49,7 @@ class FileReader:
 class TitanicModel:
     def __init__(self):
         self.fileReader = FileReader()
-        self.data = './data'
+        self.data = 'com_cheese_api/review/data'
 
     def new_model(self, payload) -> object:
         this = self.fileReader
