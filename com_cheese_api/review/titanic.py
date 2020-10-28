@@ -49,7 +49,7 @@ class FileReader:
 class TitanicModel:
     def __init__(self):
         self.fileReader = FileReader()
-        self.data = 'com_cheese_api/review/data'
+        self.data = os.path.abspath("./data")
 
     def new_model(self, payload) -> object:
         this = self.fileReader
@@ -101,7 +101,7 @@ class TitanicModel:
          # [] 에 있으니 이것은 변수명이겠군요..라고 판단하셨으면 잘 이해한 겁니다.
         labels = ['Unknown', 'Baby', 'Child', 'Teenager', 'Student', 'Young Adult', 'Adult', 'Senior']
         # [] 은 변수명으로 선언되었음
-        train['AgeGroup'] = pd.cut(train['Age'], bins, lables=labels)
+        train['AgeGroup'] = pd.cut(train['Age'], bins, labels=labels)
         test['AgeGroup'] = pd.cut(train['Age'], bins, labels=labels)
         age_title_mapping = {
             0: 'Unknown',
