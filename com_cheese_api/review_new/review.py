@@ -107,4 +107,27 @@ class Review(Resource):
         if review:
             return review.json()
         return {'message': 'Review not found'}, 404
+    @staticmethod
+    def put(self, review, review_id):
+        parser = self.parser
+        parser.add_argument('rev_id', type=int, required=False, help='This field cannot be left blank')
+        parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
+        parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
+        parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
+        parser.add_argument('review_detail', type=str, required=False, help='This field cannot be left blank')
+        args = parser.parse_args()
+        review = ReviewVo()
+        review.review_title = args['review_title']
+        review.review_detail = args['review_detail']
+        review.rev_id = args['rev_id']
+        try:
+            ReviewDao.update(review, review_id)
+            return {'message': 'Review was Updated Successfully'}, 200
+        except:
+            return {'message': 'An Error Occured Updating the Review'}, 500
+
+
+class Reviews(Resource):
+    def get(self):
+        return {'reivews': list(map(lambda review: review.json(), ReviewDao.find_all()))}
         
