@@ -3,6 +3,8 @@ from com_cheese_api.ext.db import db, openSession
 from com_cheese_api.resources.user import UserDto
 from com_cheese_api.resources.item import ItemDto
 
+
+
 class ReviewDto(db.Model):
     __tableName__="reviews"
     __table_args__={'mysql_collate':'utf8_general_ci'}

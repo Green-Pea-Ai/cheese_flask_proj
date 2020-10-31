@@ -9,7 +9,7 @@ setuptools.setup(
     version='1.0',
     description='Python Distribution Utilities',
     long_description=long_description,
-    author='green-pea',
+    author='green-pea-ai',
     author_email='yachtboatfor@gmail.com',
     url='https://www.python.org/sigs/distutils-sig/',
     packages=setuptools.find_packages(),
