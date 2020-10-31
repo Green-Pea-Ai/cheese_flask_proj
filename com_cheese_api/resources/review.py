@@ -228,11 +228,16 @@ class ReviewDf():
     df['review_detail'] = split.str.get(1)
     split
 
+    # 결측값 제거 필요
+
 
     # pandas로 가공한 데이터 csv 파일로 다시 저장하기
-    df.to_csv('cheese_review_panda.csv')
+    # 
+    # df.to_csv('cheese_review_panda.csv')
+    return df
 
-
+if __name__ == "__main__":
+    print()
 
 # ==============================================================
 # ====================                     =====================
@@ -379,6 +384,7 @@ class ReviewApi():
             return {'message': 'An Error Occured Updating the Review'}, 500
 
 
+# 리뷰 리스트 
 class Reviews(Resource):
     def get(self):
         return {'reivews': list(map(lambda review: review.json(), ReviewDao.find_all()))}
