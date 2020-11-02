@@ -319,7 +319,6 @@ class ReviewDao(ReviewDto):
     def delete(cls, rev_id):
         Session = openSession()
         session = Session()
-        session = Session()
         cls.query(ReviewDto.rev_id == rev_id).delete()
         session.commit()
 
