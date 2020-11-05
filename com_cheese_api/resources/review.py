@@ -47,7 +47,7 @@ class ReviewKdd():
         # create a new chrome session
         options = Options()
 
-        driver = webdriver.Chrome(options=options, executable_path="/home/bitai/WDOP/proj_my/test_Wandoo_2/crawling_driver/chromedriver_linux64/chromedriver")
+        driver = webdriver.Chrome(options=options, executable_path="/home/bitai/Documents/EMP_Team/EMP_Main/Ai/cheese_flask_proj/chromedriver_linux64/chromedriver")
         driver.maximize_window()
 
         # 리뷰 페이지 주소
@@ -94,8 +94,6 @@ class ReviewKdd():
         review_views
 
 
-
-    
 
         # 2~17page 까지만 진행(range 1,18)
         # 17page(2~18p), 15page는 105개라 발생할 수 있는 더미 데이터까지 감안하면 애매해서 16page
@@ -193,7 +191,7 @@ class ReviewDf():
     import pandas as pd
 
     cheese_data_frame = pd.read_csv(
-        '/home/bitai/WDOP/proj_my3/cheese_review_crawl_python/dataset/cheese_review_for_analysis.csv',
+        '/home/bitai/Documents/EMP_Team/EMP_Main/Ai/cheese_flask_proj/data_set/cheese_review_for_analysis.csv',
         sep=','
     )
 
@@ -239,11 +237,13 @@ class ReviewDf():
 if __name__ == "__main__":
     print()
 
+
 # ==============================================================
 # ====================                     =====================
 # ====================       Modeling      =====================
 # ====================                     =====================
 # ==============================================================
+# DB로 데이터 전송하는 부분
 class ReviewDto(db.Model):
     __tableName__="reviews"
     __table_args__={'mysql_collate':'utf8_general_ci'}
@@ -337,6 +337,7 @@ class ReviewAi():
 # ====================                     =====================
 # ==============================================================
 
+# API로 만드는 부분
 class ReviewApi():
     def __init__(self):
         self.parser = reqparse.RequestParser()

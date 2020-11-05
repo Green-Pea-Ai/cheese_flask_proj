@@ -24,3 +24,5 @@ yarn-error.log*
 
 # Custom ingnore
 .vscode/
+data_set/.ipynb_checkpoints/
+__pycache__
