@@ -1,12 +1,13 @@
 import os
-import pandas as pandas
+import pandas as pd
 import xlrd
 # import googlemaps
 import json
 
-from dataclasses import dataclasses
+from dataclasses import dataclass
+import googlemaps
 
-@dataclasses
+@dataclass
 class FileReader:
     context: str = ''
     fname: str = ''
