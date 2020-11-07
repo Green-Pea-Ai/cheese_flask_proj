@@ -164,10 +164,11 @@ class ReviewKdd():
                     time.sleep(random.uniform(1, 1.1))
         
         print("크롤링 끝!!!")
-        review_list
+        return review_list
 
 
 
+    def save_csv(self, review_list):
         # csv 파일 다운로드하기
         import csv
 
@@ -182,7 +183,3 @@ class ReviewKdd():
             
         vid_csv_file.close()
 
-
-if __name__ == "__main__":
-    rw = ReviewKdd()
-    rw.crawling()

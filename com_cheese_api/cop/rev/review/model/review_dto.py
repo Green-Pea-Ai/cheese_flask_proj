@@ -5,6 +5,15 @@
 # ==============================================================
 # DB로 접속하는 부분
 
+# review_num,
+# category,
+# brand_name,
+# product_name,
+# review_title,
+# review_detail,
+# review_date,
+# review_views
+
 class ReviewDto(db.Model):
     __tableName__="reviews"
     __table_args__={'mysql_collate':'utf8_general_ci'}

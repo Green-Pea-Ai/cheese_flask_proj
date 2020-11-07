@@ -25,7 +25,7 @@ from sklearn.svm import SVC # svm
 import os
 import json
 
-class UserDf:
+class UserDfo:
     def __init__(self):
         self.fileReader = FileReader()
         self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
@@ -139,6 +139,7 @@ class UserDf:
 
 ####################### 데이터 불러오기 & 생성 & featrue 제거 #######################
 
+    # 메모리에 적재
     def new_model(self, payload):
         this = self.fileReader
         this.data = self.data
@@ -147,6 +148,7 @@ class UserDf:
         print(f'{this.fname}')
         return pd.read_csv(Path(self.data, this.fname))
 
+    # 디스크에 적재
     @staticmethod
     def create_train(this) -> object:
         return this.train.drop('cheese_category', axis=1) # Train is a dataset in which the answer is removed. 
