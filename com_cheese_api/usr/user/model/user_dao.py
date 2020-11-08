@@ -3,7 +3,8 @@ from com_cheese_api.usr.user.model.user_dto import UserDto
 from com_cheese_api.usr.user.model.user_dfo import UserDfo
 import numpy as np
 import pandas as pd
-from com_cheese_api.util.file import FileReader
+# from com_cheese_api.util.file import FileReader
+from com_cheese_api.cmm.utl.file import FileReader
 from pathlib import Path
 from com_cheese_api.ext.db import url, db, openSession, engine
 from konlpy.tag import Okt
@@ -34,22 +35,23 @@ Session = openSession()
 session = Session()
 
 class UserDao(UserDto):
-    # @classmethod
-    # def bulk(cls, UserDfo):
-    #     userDfo = UserDfo()
-    #     df = UserDfo.new()
-    #     print(df.head())
-    #     session.bulk_insert_mappings(cls, df.to_dict(orient="records"))
-    #     session.commit()
-    #     session.close()
-    @staticmethod
-    def bulk():
-        userDfo = UserDfo()
-        df = userDfo.new()
-        print(df.head())
-        session.bulk_insert_mappings(UserDto, df.to_dict(orient="records"))
+
+    @classmethod
+    def bulk(cls, user_dfo):
+        dfo = user_dfo.create()
+        print(dfo.head())
+        session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
         session.commit()
         session.close()
+
+    # @staticmethod
+    # def bulk():
+    #     userDfo = UserDfo()
+    #     df = userDfo.new()
+    #     print(df.head())
+    #     session.bulk_insert_mappings(UserDto, df.to_dict(orient="records"))
+    #     session.commit()
+    #     session.close()
 
     @staticmethod
     def save(user):

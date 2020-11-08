@@ -1,26 +1,12 @@
 import numpy as np
 import pandas as pd
-from com_cheese_api.util.file import FileReader
+# from com_cheese_api.util.file import FileReader
+from com_cheese_api.cmm.utl.file import FileReader
 from pathlib import Path
 from com_cheese_api.ext.db import url, db, openSession, engine
-from konlpy.tag import Okt
-from collections import Counter
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
-import seaborn as sns
-from sqlalchemy import func
-from sqlalchemy.ext.declarative import declarative_base
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import KFold  # k value is understood as count
-from sklearn.model_selection import cross_val_score
-from sklearn.ensemble import RandomForestClassifier # rforest
-from sklearn.tree import DecisionTreeClassifier # dtree
-from sklearn.ensemble import RandomForestClassifier # rforest
-from sklearn.naive_bayes import GaussianNB # nb
-from sklearn.neighbors import KNeighborsClassifier # knn
-from sklearn.svm import SVC # svm
 
+# from sqlalchemy import func
+# from sqlalchemy.ext.declarative import declarative_base
 
 import os
 import json
@@ -82,6 +68,6 @@ class UserVo():
     buy_count: int = 0
 
 
-db.init_app(app)
-with app.app_context():
-    db.create_all()
+# db.init_app(app)
+# with app.app_context():
+#     db.create_all()

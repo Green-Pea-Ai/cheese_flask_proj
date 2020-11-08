@@ -1,5 +1,6 @@
 from com_cheese_api.ext.db import url, db, openSession, engine
-from com_cheese_api.util.file import FileReader
+# from com_cheese_api.util.file import FileReader
+from com_cheese_api.cmm.utl.file import FileReader
 
 from sqlalchemy import func
 from sqlalchemy import and_, or_
@@ -44,7 +45,7 @@ class CheeseDto(db.Model):
     orders = db.relationship('OrderDto', back_populates='cheese', lazy='dynamic')
     prices = db.relationship('PriceDto', back_populates='cheese', lazy='dynamic')
 
-    def __init__(self, cheese_id, name, price, types, texture, taste, matching, content) : 
+    def __init__(self, cheese_id, ranking, category, types, brand, texture, img): 
         self.cheese_id = cheese_id
         self.ranking = ranking
         self.category = category
@@ -55,12 +56,23 @@ class CheeseDto(db.Model):
 
     def __repr__(self):
         return f'cheese(cheese_id={self.cheese_id}, ranking={self.ranking}, category={self.category}, \
-                    types={self.types}, texture={self.texture}, brand={self.brand}, img={self.img})'
+                    types={self.types}, brand={self.brand}, texture={self.texture}, img={self.img})'
+
+    def __str__(self):
+        return f'cheese(cheese_id={self.cheese_id}, ranking={self.ranking}, category={self.category}, \
+                    types={self.types}, brand={self.brand}, texture={self.texture}, img={self.img})'
 
     @property
     def json(self):
-        return {'cheese_id':self.cheese_id, 'ranking':self.ranking, 'category':self.category, 'types':self.types, 'texture':self.types, \
-                    'brand':self.brand, 'img':self.img}
+        return {
+            'cheese_id':self.cheese_id, 
+            'ranking':self.ranking, 
+            'category':self.category,
+            'types':self.types,
+            'texture':self.types,
+            'brand':self.brand,
+            'img':self.img
+        }
 
 class CheeseVo(object):
     cheese_id : 0

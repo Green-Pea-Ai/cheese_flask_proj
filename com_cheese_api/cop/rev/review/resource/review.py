@@ -24,7 +24,7 @@ review_fields = {
 }
 
 # API로 만드는 부분
-class ReviewApi(Resource):
+class ReviewAPI(Resource):
 
     def __init__(self):
         self.parser = reqparse.RequestParser()
@@ -73,6 +73,6 @@ class ReviewApi(Resource):
 
 
 # 리뷰 리스트 
-class Reviews(Resource):
+class ReviewsAPI(Resource):
     def get(self):
         return {'reivews': list(map(lambda review: review.json(), ReviewDao.find_all()))}

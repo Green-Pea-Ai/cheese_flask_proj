@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.tree import DecisionTreeClassifier # dtree
-from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.naive_bayes import GaussianNB # nb(Naive Bayes)
 from sklearn.neighbors import KNeighborsClassifier # knn(K-Nearest Neighbors algorithm)
 from sklearn.svm import SVC # svm(Support Vector Machine)

@@ -1,5 +1,6 @@
 from com_cheese_api.ext.db import url, db, openSession, engine
-from com_cheese_api.util.file import FileReader
+# from com_cheese_api.util.file import FileReader
+from com_cheese_api.cmm.utl.file import FileReader
 
 from flask import request
 from flask import Response, jsonify
@@ -10,7 +11,6 @@ from sqlalchemy import and_, or_
 
 from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.tree import DecisionTreeClassifier # dtree
-from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.naive_bayes import GaussianNB # nb
 from sklearn.neighbors import KNeighborsClassifier # knn
 from sklearn.svm import SVC # svm
@@ -115,7 +115,7 @@ class CheeseDfo(object):
         print(sumdf)
         print(sumdf.isnull().sum())
         print(list(sumdf))
-        sumdf.to_csv(os.path.join('com_cheese_api/resources/data', 'cheese_fin.csv'), index=False, encoding='utf-8-sig')
+        sumdf.to_csv(os.path.join('com_cheese_api/cop/itm/cheese/data', 'cheese_fin.csv'), index=False, encoding='utf-8-sig')
         return sumdf
 
 
@@ -184,6 +184,7 @@ class CheeseDfo(object):
         }
         this.cheese['category'] = this.cheese['category'].map(category_map)
         return this
+
 
     @staticmethod
     def df_split(data):

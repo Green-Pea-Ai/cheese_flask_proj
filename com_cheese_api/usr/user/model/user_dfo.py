@@ -3,7 +3,8 @@ import pandas as pd
 from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-from com_cheese_api.util.file import FileReader
+# from com_cheese_api.util.file import FileReader
+from com_cheese_api.cmm.utl.file import FileReader
 from com_cheese_api.ext.db import url, db, openSession, engine
 from konlpy.tag import Okt
 from collections import Counter
@@ -16,7 +17,6 @@ from sklearn.model_selection import KFold  # k value is understood as count
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.tree import DecisionTreeClassifier # dtree
-from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.naive_bayes import GaussianNB # nb
 from sklearn.neighbors import KNeighborsClassifier # knn
 from sklearn.svm import SVC # svm

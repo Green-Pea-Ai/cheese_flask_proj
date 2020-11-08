@@ -8,13 +8,15 @@ db = SQLAlchemy()
 
 config = {
     'user': 'root',
-    'password': 'qAqR1532!#',
+    'password': 'pwd',
     'host': '127.0.0.1',
     'port': '3306',
-    'database': 'com_cheese_api'
+    'database': 'com_cheese_api',
+    'auth_plugin': 'mysql_native_password'
 }
 
 charset = {'utf8':'utf8'}
+
 url = f"mysql+mysqlconnector://{ config['user'] }:{ config['password'] }@{ config['host'] }:{ config['port'] }/{ config['database'] }?charset=utf8"
 Base = declarative_base()
 engine = create_engine(url)
@@ -22,3 +24,5 @@ engine = create_engine(url)
 
 def openSession():
     return sessionmaker(bind = engine)
+
+# openSession()

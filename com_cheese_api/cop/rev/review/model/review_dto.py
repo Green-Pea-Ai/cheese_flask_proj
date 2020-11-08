@@ -1,6 +1,8 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
-from com_cheese_api.usr.user import UserDto
-from com_cheese_api.cop.itm.cheese.resource import ItemDto
+# from com_cheese_api.usr.user import UserDto
+from com_cheese_api.ext.db import db, openSession
+from com_cheese_api.usr.user.model.user_dto import UserDto
+from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseDto
 
 # ==============================================================
 # ====================                     =====================
@@ -28,24 +30,25 @@ class ReviewDto(db.Model):
 
     user_id = db.Column(db.String(10), db.ForeignKey(UserDto.user_id))
     user = db.relationship('UserDto', back_populates='reviews')
-    item_id = db.Column(db.Integer, db.ForeignKey(ItemDto.item_id))
-    item = db.relationship('ItemDto', back_populates='reviews')
 
-    def __init__(self, title, review_detail, user_id, item_id):
+    cheese_id = db.Column(db.Integer, db.ForeignKey(CheeseDto.cheese_id))
+    item = db.relationship('CheeseDto', back_populates='reviews')
+
+    def __init__(self, title, review_detail, user_id, cheese_id):
         self.review_title = title
         self.review_detail = review_detail
         self.user_id = user_id
-        self.item_id = item_id
+        self.cheese_id = cheese_id
 
     def __repr__(self):
-        return f'rev_id={self.rev_id}, user_id={self.user_id}, item_id={self.item_id},\
+        return f'rev_id={self.rev_id}, user_id={self.user_id}, cheese_id={self.cheese_id},\
             review_title={self.review_title}, review_detail={self.review_detail}'
 
     def json(self):
         return {
             'rev_id': self.rev_id,
             'user_id': self.user_id,
-            'item_id': self.item_id,
+            'cheese_id': self.cheese_id,
             'review_title': self.review_title,
             'review_detail': self.review_detail
         }
@@ -54,6 +57,6 @@ class ReviewDto(db.Model):
 class ReviewVo():
     rev_id: int = 0
     user_id: str = ''
-    item_id: int = 0
+    cheese_id: int = 0
     review_title: str = ''
     review_detail: str = ''
