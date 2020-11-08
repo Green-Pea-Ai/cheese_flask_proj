@@ -1,10 +1,13 @@
 from com_cheese_api.ext.db import url, db, openSession, engine
 from com_cheese_api.util.file import FileReader
+
 from flask import request
-from sqlalchemy import func
-from sqlalchemy import and_, or_
 from flask import Response, jsonify
 from flask_restful import Resource, reqparse
+
+from sqlalchemy import func
+from sqlalchemy import and_, or_
+
 from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.tree import DecisionTreeClassifier # dtree
 from sklearn.ensemble import RandomForestClassifier # rforest
@@ -14,6 +17,7 @@ from sklearn.svm import SVC # svm
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold  # k value is understood as count
 from sklearn.model_selection import cross_val_score
+
 import pandas as pd
 import numpy as np
 import json
@@ -23,7 +27,7 @@ from typing import List
 from pathlib import Path
 
 
-class CheeseDf():
+class CheeseDfo(object):
     def __init__(self):
         self.fileReader = FileReader()
         self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
@@ -38,12 +42,12 @@ class CheeseDf():
 
         print(this.cheese.isnull().sum())
 
-        this = CheeseDf.ranking_ordinal(this)
-        this = CheeseDf.cheese_texture_norminal(this)
-        this = CheeseDf.types_norminal(this)
-        this = CheeseDf.cheese_category_norminal(this)
+        this = CheeseDfo.ranking_ordinal(this)
+        this = CheeseDfo.cheese_texture_nominal(this)
+        this = CheeseDfo.types_nominal(this)
+        this = CheeseDfo.cheese_category_nominal(this)
 
-        cheese_split = CheeseDf.df_split(this.cheese)
+        cheese_split = CheeseDfo.df_split(this.cheese)
 
         # train, test 데이터#
         train = 'cheese_train.csv'
@@ -69,10 +73,10 @@ class CheeseDf():
         this.id = this.test['name']
         # print(f'Preprocessing Train Variable : {this.train.columns}')
         # print(f'Preprocessing Test Variable : {this.test.columns}')    
-        this = CheeseDf.drop_feature(this, 'country')
-        this = CheeseDf.drop_feature(this, 'price')
-        this = CheeseDf.drop_feature(this, 'content')
-        this = CheeseDf.drop_feature(this, 'cheese_id')
+        this = CheeseDfo.drop_feature(this, 'country')
+        this = CheeseDfo.drop_feature(this, 'price')
+        this = CheeseDfo.drop_feature(this, 'content')
+        this = CheeseDfo.drop_feature(this, 'cheese_id')
         # print(f'Post-Drop Variable : {this.train.columns}')   
 
 
@@ -82,8 +86,8 @@ class CheeseDf():
         # # print(f'Train NA Check: {this.train.isnull().sum()}')
         # # print(f'Test NA Check: {this.test.isnull().sum()}')    
 
-        this.label = CheeseDf.create_label(this) # payload
-        this.train = CheeseDf.create_train(this) # payload
+        this.label = CheeseDfo.create_label(this) # payload
+        this.train = CheeseDfo.create_train(this) # payload
 
         # # print(f'Train Variable: {this.train.columns}')
         # # print(f'Test Varibale: {this.test.columns}')
@@ -106,6 +110,7 @@ class CheeseDf():
 
         # print(self.odf)
         # print(df)
+        # 변수 odf와 df의 데이터 프레임을 합침
         sumdf = pd.concat([self.odf, df], axis=1)
         print(sumdf)
         print(sumdf.isnull().sum())
@@ -143,7 +148,7 @@ class CheeseDf():
         return this
 
     @staticmethod
-    def cheese_texture_norminal(this) -> object:
+    def cheese_texture_nominal(this) -> object:
         this.cheese['texture'] = this.cheese['texture'].map({
             '후레쉬치즈': 1,
             '세미하드치즈': 2,
@@ -156,14 +161,14 @@ class CheeseDf():
         return this
 
     @staticmethod
-    def types_norminal(this) -> object:
+    def types_nominal(this) -> object:
         types_mapping = {'가공치즈':0, '자연치즈':1}
         this.cheese ['types'] = this.cheese['types'].map(types_mapping)
         this.cheese = this.cheese
         return this
 
     @staticmethod
-    def cheese_category_norminal(this) -> object:
+    def cheese_category_nominal(this) -> object:
         category_map = {
             '모짜렐라': 1,
             '블루치즈': 2,
@@ -180,12 +185,11 @@ class CheeseDf():
         this.cheese['category'] = this.cheese['category'].map(category_map)
         return this
 
-
     @staticmethod
     def df_split(data):
         cheese_train, cheese_test = train_test_split(data, test_size = 0.3, random_state = 32)
-        cheese_train.to_csv(os.path.join('com_cheese_api/resources/data', 'cheese_train.csv'), index=False)
-        cheese_test.to_csv(os.path.join('com_cheese_api/resources/data', 'cheese_test.csv'), index=False)       
+        cheese_train.to_csv(os.path.join('com_cheese_api/cop/itm/cheese/data', 'cheese_train.csv'), index=False)
+        cheese_test.to_csv(os.path.join('com_cheese_api/cop/itm/cheese/data', 'cheese_test.csv'), index=False)       
         return cheese_train, cheese_test
 
 # if __name__ == '__main__' :

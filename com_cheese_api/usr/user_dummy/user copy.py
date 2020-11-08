@@ -75,12 +75,12 @@ class UserDf:
         
         print(this)
 
-        this = UserDf.user_gender_norminal(this)
-        this = UserDf.cheese_rank_oridinal(this)
+        this = UserDf.user_gender_nominal(this)
+        this = UserDf.cheese_rank_ordinal(this)
 
         # print(min(this.user['user_age'])) # 고객 최소 나이 : 10
         # print(max(this.user['user_age'])) # 고객 최대 나이 : 80
-        this = UserDf.user_age_norminal(this)
+        this = UserDf.user_age_nominal(this)
         print(f'######## age 전처리 체크 ##########')
         print(this.user.head(10))
         this = UserDf.cheese_code_ordinal(this)
@@ -246,12 +246,12 @@ class UserDf:
     ####################### 데이터 정제 #######################
     
     @staticmethod
-    def cheese_rank_oridinal(this) -> object:
+    def cheese_rank_ordinal(this) -> object:
         return this
 
     @staticmethod
 
-    def user_gender_norminal(this) -> object:
+    def user_gender_nominal(this) -> object:
         gender_mapping = {'M': 0, 'F': 1}
         this.user['gender'] = this.user['user_gender'].map(gender_mapping)
         this.user = this.user # overriding
@@ -260,7 +260,7 @@ class UserDf:
 
 
     @staticmethod
-    def user_age_norminal(this) -> object:
+    def user_age_nominal(this) -> object:
         user = this.user
         bins = [1, 29, 39, 49, 59, np.inf]
         labels = ['Youth', 'Adult30', 'Adult40', 'Adult50', 'Senior']

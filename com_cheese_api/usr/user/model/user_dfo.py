@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
-from com_cheese_api.util.file import FileReader
 from pathlib import Path
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+from com_cheese_api.util.file import FileReader
 from com_cheese_api.ext.db import url, db, openSession, engine
 from konlpy.tag import Okt
 from collections import Counter
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 import seaborn as sns
 from sqlalchemy import func
 from sqlalchemy.ext.declarative import declarative_base
@@ -20,7 +20,6 @@ from sklearn.ensemble import RandomForestClassifier # rforest
 from sklearn.naive_bayes import GaussianNB # nb
 from sklearn.neighbors import KNeighborsClassifier # knn
 from sklearn.svm import SVC # svm
-
 
 import os
 import json
@@ -43,27 +42,27 @@ class UserDfo:
 
         print(this)
 
-        category_count = UserDf.category_Count(this.user)
-        item_count = UserDf.item_Count(this.user, category_count)
-        this.user = UserDf.change_to_cheese(this.cheese, item_count)
+        category_count = UserDfo.category_Count(this.user)
+        item_count = UserDfo.item_Count(this.user, category_count)
+        this.user = UserDfo.change_to_cheese(this.cheese, item_count)
         print(f'######## 치즈 상품 대체 체크 ##########')
 
         # this.user = self.new_model(user)
         
         print(this)
 
-        this = UserDf.user_gender_norminal(this)
-        this = UserDf.cheese_rank_oridinal(this)
+        this = UserDfo.user_gender_nominal(this)
+        this = UserDfo.cheese_rank_ordinal(this)
 
         # print(min(this.user['user_age'])) # 고객 최소 나이 : 10
         # print(max(this.user['user_age'])) # 고객 최대 나이 : 80
-        this = UserDf.user_age_norminal(this)
+        this = UserDfo.user_age_nominal(this)
         print(f'######## age 전처리 체크 ##########')
         print(this.user.head(10))
-        this = UserDf.cheese_code_ordinal(this)
-        this = UserDf.buy_count_numeric(this)
-        this = UserDf.cheese_category_nominal(this)
-        this = UserDf.cheese_texture_nominal(this)
+        this = UserDfo.cheese_code_ordinal(this)
+        this = UserDfo.buy_count_numeric(this)
+        this = UserDfo.cheese_category_nominal(this)
+        this = UserDfo.cheese_texture_nominal(this)
 
         print(f'Preprocessing User Dataset : {this.user}')
 
@@ -72,10 +71,10 @@ class UserDfo:
         print(f'######## test na 체크 ##########')
         print(f'{this.user.isnull().sum()}')
         print(f'######## data type 체크 ##########')
-        print(this.user.dtypes)        
+        print(this.user.dtypes)
 
 
-        user_split = UserDf.user_data_split(this.user)
+        user_split = UserDfo.user_data_split(this.user)
 
         train = 'user_train.csv'
         test = 'user_test.csv'
@@ -98,7 +97,7 @@ class UserDfo:
 
         this.id = this.test['user_id'] # This becomes a question.
         
-        # show_age_plot = UserDf.find_requency(this.user, 'user_no', 'user_age') 
+        # show_age_plot = UserDfo.find_requency(this.user, 'user_no', 'user_age') 
         # 30대(1만5천) > 40대(1만4천) > 20대(3천5백) > 50대(3천1백) > 60대(523) > 10대=70대(80) >80대
         
         # print(show_age_plot)
@@ -106,18 +105,18 @@ class UserDfo:
         # show_wordcloud = self.make_wordcloud(this.user)
         # print(show_wordcloud)
 
-        show_corr = UserDf.make_corr(this.train)
+        show_corr = UserDfo.make_corr(this.train)
 
-        # this = UserDf.drop_feature(this, 'user_no')
-        this = UserDf.drop_feature(this, 'cheese_brand')
-        this = UserDf.drop_feature(this, 'cheese_code')
-        this = UserDf.drop_feature(this, 'cheese_name')
-        this = UserDf.drop_feature(this, 'cheese_types')
+        # this = UserDfo.drop_feature(this, 'user_no')
+        this = UserDfo.drop_feature(this, 'cheese_brand')
+        this = UserDfo.drop_feature(this, 'cheese_code')
+        this = UserDfo.drop_feature(this, 'cheese_name')
+        this = UserDfo.drop_feature(this, 'cheese_types')
 
-        this = UserDf.drop_feature(this, 'cheese_rank')
+        this = UserDfo.drop_feature(this, 'cheese_rank')
 
-        this.label = UserDf.create_label(this) # payload
-        this.train = UserDf.create_train(this) # payload    
+        this.label = UserDfo.create_label(this) # payload
+        this.train = UserDfo.create_train(this) # payload    
 
         df = pd.DataFrame(
             {
@@ -139,7 +138,7 @@ class UserDfo:
 
 ####################### 데이터 불러오기 & 생성 & featrue 제거 #######################
 
-    # 메모리에 적재
+    # self, 메모리에 적재
     def new_model(self, payload):
         this = self.fileReader
         this.data = self.data
@@ -148,7 +147,7 @@ class UserDfo:
         print(f'{this.fname}')
         return pd.read_csv(Path(self.data, this.fname))
 
-    # 디스크에 적재
+    # static, 디스크에 적재
     @staticmethod
     def create_train(this) -> object:
         return this.train.drop('cheese_category', axis=1) # Train is a dataset in which the answer is removed. 
@@ -172,14 +171,14 @@ class UserDfo:
     def find_requency(data, column1, column2):
         count_size = data[column1].groupby(data[column2]).count().reset_index(name='counts')
         count_size['rank'] = count_size['counts'].rank(ascending=False)
-        show_barplot = UserDf.make_barplot(column2, 'counts', count_size)
+        show_barplot = UserDfo.make_barplot(column2, 'counts', count_size)
         return count_size
 
     @staticmethod
     def category_Count(data) -> object:
         sub_size = data['buy_count'].groupby(data['sub1_category']).sum().reset_index(name='sub1_counts')
         sub_size['sub1_rank'] = sub_size['sub1_counts'].rank(ascending=False)
-        # barplot = UserDf.make_barplot('sub1_category', 'sub1_counts', sub_size)
+        # barplot = UserDfo.make_barplot('sub1_category', 'sub1_counts', sub_size)
         return sub_size
 
     @staticmethod
@@ -223,12 +222,12 @@ class UserDfo:
     ####################### 데이터 정제 #######################
     
     @staticmethod
-    def cheese_rank_oridinal(this) -> object:
+    def cheese_rank_ordinal(this) -> object:
         return this
 
     @staticmethod
 
-    def user_gender_norminal(this) -> object:
+    def user_gender_nominal(this) -> object:
         gender_mapping = {'M': 0, 'F': 1}
         this.user['gender'] = this.user['user_gender'].map(gender_mapping)
         this.user = this.user # overriding
@@ -237,7 +236,7 @@ class UserDfo:
 
 
     @staticmethod
-    def user_age_norminal(this) -> object:
+    def user_age_nominal(this) -> object:
         user = this.user
         bins = [1, 29, 39, 49, 59, np.inf]
         labels = ['Youth', 'Adult30', 'Adult40', 'Adult50', 'Senior']
@@ -411,5 +410,5 @@ class UserDfo:
 
 
 # if __name__ == '__main__':
-#     userDf = UserDf()
-#     userDf.new()
+#     UserDfo = UserDfo()
+#     UserDfo.new()

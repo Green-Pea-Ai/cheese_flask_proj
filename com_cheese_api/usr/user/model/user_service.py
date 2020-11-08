@@ -111,23 +111,22 @@ class UserService:
         # print(df)
         sumdf = pd.concat([self.odf, df], axis=1)
 
-'''
-userid password                                               name  pclass  gender age_group  embarked  rank
-0         1        1                            Braund, Mr. Owen Harris       3       0         4         1     1
-1         2        1  Cumings, Mrs. John Bradley (Florence Briggs Th...       1       1         6         2     3
-2         3        1                             Heikkinen, Miss. Laina       3       1         5         1     2
-3         4        1       Futrelle, Mrs. Jacques Heath (Lily May Peel)       1       1         5         1     3
-4         5        1                           Allen, Mr. William Henry       3       0         5         1     1
-..      ...      ...                                                ...     ...     ...       ...       ...   ...
-886     887        1                              Montvila, Rev. Juozas       2       0         5         1     6
-887     888        1                       Graham, Miss. Margaret Edith       1       1         4         1     2
-888     889        1           Johnston, Miss. Catherine Helen "Carrie"       3       1         2         1     2
-889     890        1                              Behr, Mr. Karl Howell       1       0         5         2     1
-890     891        1                                Dooley, Mr. Patrick       3       0         5         3     1
+# '''
+# userid password                                               name  pclass  gender age_group  embarked  rank
+# 0         1        1                            Braund, Mr. Owen Harris       3       0         4         1     1
+# 1         2        1  Cumings, Mrs. John Bradley (Florence Briggs Th...       1       1         6         2     3
+# 2         3        1                             Heikkinen, Miss. Laina       3       1         5         1     2
+# 3         4        1       Futrelle, Mrs. Jacques Heath (Lily May Peel)       1       1         5         1     3
+# 4         5        1                           Allen, Mr. William Henry       3       0         5         1     1
+# ..      ...      ...                                                ...     ...     ...       ...       ...   ...
+# 886     887        1                              Montvila, Rev. Juozas       2       0         5         1     6
+# 887     888        1                       Graham, Miss. Margaret Edith       1       1         4         1     2
+# 888     889        1           Johnston, Miss. Catherine Helen "Carrie"       3       1         2         1     2
+# 889     890        1                              Behr, Mr. Karl Howell       1       0         5         2     1
+# 890     891        1                                Dooley, Mr. Patrick       3       0         5         3     1
 
-[891 rows x 8 columns]
-        
-'''
+# [891 rows x 8 columns]
+# '''
         return sumdf
 
 

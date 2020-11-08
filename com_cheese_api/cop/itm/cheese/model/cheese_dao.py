@@ -1,4 +1,6 @@
-from com_cheese_api.cop.chs.model.cheese_dto import CheeseDto
+# from com_cheese_api.cop.chs.model.cheese_dto import CheeseDto
+from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseDto
+from com_cheese_api.cop.itm.cheese.model.cheese_dfo import CheeseDfo
 from com_cheese_api.ext.db import url, db, openSession, engine
 from com_cheese_api.util.file import FileReader
 
@@ -32,14 +34,39 @@ Session = openSession()
 session = Session()
 
 class CheeseDao(CheeseDto):
-    @classmethod
-    def bulk(cls, CheeseDf):
-        cheeseDf = CheeseDf()
-        df = CheeseDf.new()
+
+    # @classmethod
+    # def bulk(cls, CheeseDfo):
+    #     cheeseDfo = CheeseDfo()
+    #     df = CheeseDfo.new()
+    #     print(df.head())
+    #     session.bulk_insert_mappings(CheeseDto, df.to_dict(orient="records"))
+    #     session.commit()
+    #     session.close()
+
+
+    @staticmethod
+    def bulk():
+        cheeseDfo = CheeseDfo()
+        df = CheeseDfo.new()
         print(df.head())
         session.bulk_insert_mappings(CheeseDto, df.to_dict(orient="records"))
         session.commit()
         session.close()
 
-if __name__ == '__main__':
-    CheeseDao.bulk()
+
+    # @classmethod
+    # def find_all(cls):
+    #     return cls.query.all()
+
+    # @classmethod
+    # def find_by_name(cls, name):
+    #     return cls.query.filter_by(name == name).all()
+
+    # @classmethod
+    # def find_by_id(cls, id):
+    #     return cls.query.filter_by(id == id).first()
+
+
+# if __name__ == '__main__':
+#     CheeseDao.bulk()

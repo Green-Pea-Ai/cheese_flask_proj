@@ -8,7 +8,7 @@ db = SQLAlchemy()
 
 config = {
     'user': 'root',
-    'password': 'root_pwd',
+    'password': 'qAqR1532!#',
     'host': '127.0.0.1',
     'port': '3306',
     'database': 'com_cheese_api'

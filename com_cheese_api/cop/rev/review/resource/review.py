@@ -1,34 +1,43 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-from time import sleep
-import time
-import random
-from urllib.request import urlopen
-from bs4 import BeautifulSoup
-from bs4.element import NavigableString
+from flask_restful import Resource, reqparse, fields, marshal_with
+from com_cheese_api.cop.rev.review.model.review_dao import ReviewDao
+from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto, ReviewVo
 
 
+'''
+결과물 적어서 남겨놓기
+'''
+
+# 웹크롤링, 텍스트 마이닝 -> 데이터 마이닝
+
+# 마일드 스톤(미국 도로보면 지역의 경계에 웰컴 어디어디 지역명 적어놓은것)
 # ==============================================================
 # ====================                     =====================
 # ====================      Resourcing     =====================
 # ====================                     =====================
 # ==============================================================
 
+review_fields = {
+    'review_title': fields.String,
+    'review_detail': fields.String,
+    'user_id': fields.String,
+    'item_id': fields.Integer
+}
+
 # API로 만드는 부분
-class ReviewApi():
+class ReviewApi(Resource):
+
     def __init__(self):
         self.parser = reqparse.RequestParser()
-
     
+    @marshal_with(review_fields)
     def post(self):
         parser = self.parser
-        parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
-        parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
-        parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
-        parser.add_argument('review_detail', type=str, required=False, help='This field cannot be left blank')
+        # parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
+        # parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
+        # parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
+        # parser.add_argument('review_detail', type=str, required=False, help='This field cannot be left blank')
         args = parser.parse_args()
-        article = ReviewDto(args['review_title'], args['review_detail'],\
+        review = ReviewDto(args['review_title'], args['review_detail'],\
                             args['user_id'], args['item_id'])
         try:
             ReviewDao.save(review)

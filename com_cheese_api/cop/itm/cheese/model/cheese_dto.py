@@ -44,7 +44,7 @@ class CheeseDto(db.Model):
     orders = db.relationship('OrderDto', back_populates='cheese', lazy='dynamic')
     prices = db.relationship('PriceDto', back_populates='cheese', lazy='dynamic')
 
-    def __init__(self, cheeseid, name, price, types, texture, taste, matching, content) : 
+    def __init__(self, cheese_id, name, price, types, texture, taste, matching, content) : 
         self.cheese_id = cheese_id
         self.ranking = ranking
         self.category = category
@@ -62,7 +62,7 @@ class CheeseDto(db.Model):
         return {'cheese_id':self.cheese_id, 'ranking':self.ranking, 'category':self.category, 'types':self.types, 'texture':self.types, \
                     'brand':self.brand, 'img':self.img}
 
-class CheeseVo():
+class CheeseVo(object):
     cheese_id : 0
     ranking : 0
     category: 0

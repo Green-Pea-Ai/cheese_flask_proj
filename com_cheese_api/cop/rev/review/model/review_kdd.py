@@ -17,7 +17,7 @@ from bs4.element import NavigableString
 # ==============================================================
 
 # 데이터 크롤링 과정
-class ReviewKdd():
+class ReviewKdd(object):
     
     def __init__(self):
         self.name = ''

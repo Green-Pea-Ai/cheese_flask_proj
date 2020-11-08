@@ -82,7 +82,6 @@ class UserVo():
     buy_count: int = 0
 
 
-
 db.init_app(app)
 with app.app_context():
     db.create_all()

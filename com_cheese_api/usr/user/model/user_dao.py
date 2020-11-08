@@ -1,4 +1,6 @@
-from com_cheese_api.usr.model.user_dto import UserDto
+# from com_cheese_api.usr.model.user_dto import UserDto
+from com_cheese_api.usr.user.model.user_dto import UserDto
+from com_cheese_api.usr.user.model.user_dfo import UserDfo
 import numpy as np
 import pandas as pd
 from com_cheese_api.util.file import FileReader
@@ -11,6 +13,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import seaborn as sns
 from sqlalchemy import func
+from sqlalchemy import and_, or_
 from sqlalchemy.ext.declarative import declarative_base
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold  # k value is understood as count
@@ -32,17 +35,17 @@ session = Session()
 
 class UserDao(UserDto):
     # @classmethod
-    # def bulk(cls, UserDf):
-    #     userDf = UserDf()
-    #     df = UserDf.new()
+    # def bulk(cls, UserDfo):
+    #     userDfo = UserDfo()
+    #     df = UserDfo.new()
     #     print(df.head())
     #     session.bulk_insert_mappings(cls, df.to_dict(orient="records"))
     #     session.commit()
     #     session.close()
     @staticmethod
     def bulk():
-        userDf = UserDf()
-        df = userDf.new()
+        userDfo = UserDfo()
+        df = userDfo.new()
         print(df.head())
         session.bulk_insert_mappings(UserDto, df.to_dict(orient="records"))
         session.commit()
