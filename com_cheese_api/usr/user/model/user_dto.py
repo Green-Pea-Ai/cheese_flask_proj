@@ -49,7 +49,7 @@ class UserDto(db.Model):
     def json(self):
         return {
             'user_no' : self.user_no,
-            'userId' : self.user_id,
+            'user_id' : self.user_id,
             'password': self.password,
             'gender': self.gender,
             'age_group': self.age_group,

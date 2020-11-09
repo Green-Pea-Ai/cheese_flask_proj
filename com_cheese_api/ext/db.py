@@ -7,8 +7,8 @@ from sqlalchemy.orm import sessionmaker
 db = SQLAlchemy()
 
 config = {
-    'user': 'root',
-    'password': 'pwd',
+    'user': 'bitai',
+    'password': '456123',
     'host': '127.0.0.1',
     'port': '3306',
     'database': 'com_cheese_api',

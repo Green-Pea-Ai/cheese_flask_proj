@@ -55,7 +55,7 @@ class ReviewAPI(Resource):
     @staticmethod
     def put(self, review, review_id):
         parser = self.parser
-        parser.add_argument('rev_id', type=int, required=False, help='This field cannot be left blank')
+        parser.add_argument('review_id', type=int, required=False, help='This field cannot be left blank')
         parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
         parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
         parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
@@ -64,7 +64,7 @@ class ReviewAPI(Resource):
         review = ReviewVo()
         review.review_title = args['review_title']
         review.review_detail = args['review_detail']
-        review.rev_id = args['rev_id']
+        review.review_id = args['review_id']
         try:
             ReviewDao.update(review, review_id)
             return {'message': 'Review was Updated Successfully'}, 200
