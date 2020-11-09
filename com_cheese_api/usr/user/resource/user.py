@@ -50,6 +50,7 @@ class User(Resource):
             if user:
                 return json.dumps(user.json()), 200
         except Exception as e:
+            print(e)
             return {'message': 'User not found'}, 404
 
     # @staticmethod

@@ -21,7 +21,7 @@ from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseDto
 # review_views
 
 class ReviewDto(db.Model):
-    __tableName__="reviews"
+    __tablename__="reviews"
     __table_args__={'mysql_collate':'utf8_general_ci'}
 
     review_id: int = db.Column(db.Integer, primary_key=True, index=True)

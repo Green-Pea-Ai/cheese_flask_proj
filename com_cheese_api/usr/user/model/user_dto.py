@@ -4,6 +4,7 @@ import pandas as pd
 from com_cheese_api.cmm.utl.file import FileReader
 from pathlib import Path
 from com_cheese_api.ext.db import url, db, openSession, engine
+# from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto
 
 # from sqlalchemy import func
 # from sqlalchemy.ext.declarative import declarative_base
@@ -26,6 +27,8 @@ class UserDto(db.Model):
     # orders = db.relationship('OrderDto', back_populates='user', lazy='dynamic')
     # prices = db.relationship('PriceDto', back_populates='user', lazy='dynamic')
     # articles = db.relationship('ArticleDto', back_populates='user', lazy='dynamic')
+
+    # reviews = db.relationship('ReviewDto', back_populates='users', lazy='dynamic')
 
     def __init__(self, user_no, user_id, password, gender, age_group, cheese_texture, buy_count):
         self.user_no = user_no

@@ -1,4 +1,4 @@
-user_index,user_id,user_gender,user_age,buy_count,cheese_rank,cheese_code,cheese_id,cheese_brand,cheese_name,cheese_texture,cheese_types,cheese_category,cheese_one_price,gender,age_group,cheese_category_code,cheese_texture_code
+user_no,user_id,user_gender,user_age,buy_count,cheese_rank,cheese_code,cheese_id,cheese_brand,cheese_name,cheese_texture,cheese_types,cheese_category,cheese_one_price,gender,age_group,cheese_category_code,cheese_texture_code
 544,5142281,F,60,3,21.0,24,p21,벨지오이오소,모짜렐라 로그,후레쉬치즈,자연치즈,모짜렐라,"15,900원",1,5,1,1
 26824,1319792,F,40,3,2.0,2,p2,프란시아,모짜렐라 카우,후레쉬치즈,자연치즈,모짜렐라,"3,870원",1,3,1,1
 33106,4688985,F,40,1,25.0,29,p25,만토바,파르미지아노 레지아노,하드치즈,자연치즈,파르미지아노 레지아노,"7,900원",1,3,5,3

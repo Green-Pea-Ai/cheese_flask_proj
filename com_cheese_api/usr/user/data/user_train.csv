@@ -1,4 +1,4 @@
-user_index,user_id,user_gender,user_age,buy_count,cheese_rank,cheese_code,cheese_id,cheese_brand,cheese_name,cheese_texture,cheese_types,cheese_category,cheese_one_price,gender,age_group,cheese_category_code,cheese_texture_code
+user_no,user_id,user_gender,user_age,buy_count,cheese_rank,cheese_code,cheese_id,cheese_brand,cheese_name,cheese_texture,cheese_types,cheese_category,cheese_one_price,gender,age_group,cheese_category_code,cheese_texture_code
 3312,1751881,F,30,2,2.0,2,p2,프란시아,모짜렐라 카우,후레쉬치즈,자연치즈,모짜렐라,"3,870원",1,2,1,1
 21971,1835210,F,30,2,2.0,2,p2,프란시아,모짜렐라 카우,후레쉬치즈,자연치즈,모짜렐라,"3,870원",1,2,1,1
 2347,5824726,F,50,1,15.0,16,p15,콜롬보,리코타,후레쉬치즈,자연치즈,리코타,"6,860원",1,4,3,1

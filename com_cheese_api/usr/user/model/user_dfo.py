@@ -24,10 +24,16 @@ from sklearn.svm import SVC # svm
 import os
 import json
 
+# 생성되는 파일목록
+
+
+# csv에서 user_index -> user_no로 바뀜, 고쳐야 함
+
 class UserDfo:
     def __init__(self):
         self.fileReader = FileReader()
-        self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
+        # self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/m_data')
+        self.data = os.path.join('com_cheese_api/usr/user/data')
         self.odf = None
 
     def new(self):
@@ -207,7 +213,7 @@ class UserDfo:
                                                         'category_y': 'cheese_category', 'texture': 'cheese_texture', 'types': 'cheese_types'})
         # print(list(users_cheese_merge))
         # print(user_data_fin)
-        user_data_fin.to_csv(os.path.join('com_cheese_api/study/data', 'user_df.csv'), index=False, encoding='utf-8-sig')
+        user_data_fin.to_csv(os.path.join('com_cheese_api/usr/user/data', 'user_df.csv'), index=False, encoding='utf-8-sig')
         return user_data_fin
     # item_Change()
 
@@ -311,8 +317,8 @@ class UserDfo:
     @staticmethod
     def user_data_split (data):
         user_train, user_test = train_test_split(data, test_size=0.3, random_state = 32)
-        user_train.to_csv(os.path.join('com_cheese_api/study/data', 'user_train.csv'), index=False)
-        user_test.to_csv(os.path.join('com_cheese_api/study/data', 'user_test.csv'), index=False)
+        user_train.to_csv(os.path.join('com_cheese_api/usr/user/data', 'user_train.csv'), index=False)
+        user_test.to_csv(os.path.join('com_cheese_api/usr/user/data', 'user_test.csv'), index=False)
         return user_train, user_test
 
 

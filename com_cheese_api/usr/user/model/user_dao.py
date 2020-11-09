@@ -22,23 +22,23 @@ session = Session()
 
 class UserDao(UserDto):
 
-    @classmethod
-    def bulk(cls, user_dfo):
-        user_dfo = UserDfo()
-        dfo = user_dfo.create()
-        print(user_dfo.head())
-        session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
-        session.commit()
-        session.close()
-
-    # @staticmethod
-    # def bulk():
-    #     userDfo = UserDfo()
-    #     df = userDfo.new()
-    #     print(df.head())
-    #     session.bulk_insert_mappings(UserDto, df.to_dict(orient="records"))
+    # @classmethod
+    # def bulk(cls, user_dfo):
+    #     user_dfo = UserDfo()
+    #     dfo = user_dfo.create()
+    #     print(user_dfo.head())
+    #     session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
     #     session.commit()
     #     session.close()
+
+    @staticmethod
+    def bulk():
+        userDfo = UserDfo()
+        df = userDfo.new()
+        print(df.head())
+        session.bulk_insert_mappings(UserDto, df.to_dict(orient="records"))
+        session.commit()
+        session.close()
 
     @staticmethod
     def save(user):
