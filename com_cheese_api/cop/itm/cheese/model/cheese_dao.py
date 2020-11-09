@@ -26,25 +26,25 @@ session = Session()
 
 class CheeseDao(CheeseDto):
 
-    @classmethod
-    def bulk(cls, cheese_dfo):
-        # cheeseDfo = CheeseDfo()
-        # df = CheeseDfo.new()
-        dfo = cheese_dfo.create()
-        print(dfo.head())
-        session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
-        session.commit()
-        session.close()
-
-
-    # @staticmethod
-    # def bulk():
-    #     cheeseDfo = CheeseDfo()
-    #     df = CheeseDfo.new()
-    #     print(df.head())
-    #     session.bulk_insert_mappings(CheeseDto, df.to_dict(orient="records"))
+    # @classmethod
+    # def bulk(cls, cheese_dfo):
+    #     # cheeseDfo = CheeseDfo()
+    #     # df = CheeseDfo.new()
+    #     dfo = cheese_dfo.create()
+    #     print(dfo.head())
+    #     session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
     #     session.commit()
     #     session.close()
+
+
+    @staticmethod
+    def bulk():
+        cheeseDfo = CheeseDfo()
+        df = CheeseDfo.new()
+        print(df.head())
+        session.bulk_insert_mappings(CheeseDto, df.to_dict(orient="records"))
+        session.commit()
+        session.close()
 
 
     @classmethod

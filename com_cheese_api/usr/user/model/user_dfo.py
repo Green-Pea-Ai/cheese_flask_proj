@@ -12,6 +12,7 @@ from wordcloud import WordCloud
 import seaborn as sns
 from sqlalchemy import func
 from sqlalchemy.ext.declarative import declarative_base
+
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold  # k value is understood as count
 from sklearn.model_selection import cross_val_score
@@ -24,10 +25,10 @@ from sklearn.svm import SVC # svm
 import os
 import json
 
-# 생성되는 파일목록
+# 코드 실행시 생성되는 파일목록
+# user_df.csv
 
-
-# csv에서 user_index -> user_no로 바뀜, 고쳐야 함
+# user_df 등 user csv 데이터의 컬럼명이 user_index -> user_no로 바뀜, 고쳐야 함
 
 class UserDfo:
     def __init__(self):

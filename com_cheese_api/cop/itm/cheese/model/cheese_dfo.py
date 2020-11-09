@@ -30,14 +30,15 @@ from pathlib import Path
 class CheeseDfo(object):
     def __init__(self):
         self.fileReader = FileReader()
-        self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
+        #self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
+        self.data = os.path.join('com_cheese_api/ddw/www/data')
         self.odf = None
 
     def new(self):
         this = self.fileReader
         cheese = 'cheese_data.csv'    
         this.cheese = self.new_model(cheese)
-        print(this.cheese)
+        print(f'===== 치즈 데이터 insert =====' + this.cheese)
         # print(this)
 
         print(this.cheese.isnull().sum())
