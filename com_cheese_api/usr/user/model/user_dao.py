@@ -64,11 +64,13 @@ class UserDao(UserDto):
         return session.query(func.count(cls.user_no)).one()
 
     @classmethod
-    def find_all(cls):
-        # sql = cls.query
-        # df = pd.read_sql(sql.statement, sql.session.bind)
-        # return json.loads(df.to_json(orient='records'))
-        return session.query(cls).all()
+    def find_all(cls):  
+        # print(session.query(cls))
+        sql = cls.query
+        df = pd.read_sql(sql.statement, sql.session.bind)
+        return json.loads(df.to_json(orient='records'))
+        #print(cls.quer)
+        #return session.query(cls).all()
 
     '''
     SELECT * FROM users

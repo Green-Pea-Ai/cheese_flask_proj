@@ -38,12 +38,12 @@ with app.app_context():
 
     user_all = UserDao.find_all()
     print(f'insert 테스트!!')
-    print(f'===== Users Total Count is {user_all} =====')
+    # print(f'===== Users Total Count is {user_all} =====')
     # UserDao.bulk()
-    user_all.bulk()
+    # user_all.bulk()
 
     # cheese_all = CheeseDao.find_all()
-    # CheeseDao.bulk()
+    CheeseDao.bulk()
 
 initialize_routes(api)
 

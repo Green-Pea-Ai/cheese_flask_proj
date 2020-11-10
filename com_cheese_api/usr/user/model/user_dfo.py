@@ -136,7 +136,7 @@ class UserDfo:
 
         sumdf = pd.concat([self.odf, df], axis = 1)
         print('######## train 데이터 전처리 완료 체크 ##########')
-        print(sumdf) # train 데이터만 추출했기 때문에 25811개
+        # print(sumdf) # train 데이터만 추출했기 때문에 25811개
         sumdf.to_csv(os.path.join('com_cheese_api/usr/user/data', 'users_data.csv'), index=False, encoding='utf-8-sig')
         
         return sumdf

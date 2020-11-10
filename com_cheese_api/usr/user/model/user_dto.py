@@ -29,6 +29,9 @@ class UserDto(db.Model):
     # articles = db.relationship('ArticleDto', back_populates='user', lazy='dynamic')
 
     # reviews = db.relationship('ReviewDto', back_populates='users', lazy='dynamic')
+    
+    # 관계 설정
+    #reviews = db.relationship('ReviewDto', back_populates='users')
 
     def __init__(self, user_no, user_id, password, gender, age_group, cheese_texture, buy_count):
         self.user_no = user_no

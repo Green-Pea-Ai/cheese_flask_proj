@@ -31,7 +31,7 @@ class CheeseDfo(object):
     def __init__(self):
         self.fileReader = FileReader()
         #self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
-        self.data = os.path.join('com_cheese_api/ddw/www/data')
+        self.data = os.path.join('com_cheese_api/usr/user/data')
         self.odf = None
 
     def new(self):

@@ -35,8 +35,8 @@ class ReviewDto(db.Model):
 
 
     # 관계 설정
-    user = db.relationship('UserDto', back_populates='reviews')
-    item = db.relationship('CheeseDto', back_populates='reviews')
+    # user = db.relationship('UserDto', back_populates='reviews')
+    #item = db.relationship('CheeseDto', back_populates='reviews')
 
     def __init__(self, review_id, review_title, review_detail, user_no, cheese_id):
         self.review_id = review_id
