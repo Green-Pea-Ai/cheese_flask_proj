@@ -51,5 +51,44 @@ class CheeseWordCloud():
 # Api가 될 녀석
 # 외부에 공표될 부분
 class Cheese(Resource):
-    ...
+
+    @staticmethod
+    def post():
+        args = parser.parse_args()
+        print('added')
+        params = json.loads(request.get_data(), encoding='utf-8')
+        if len(params) == 0:
+            
+            return 'No parameter'
+
+        params_str = ''
+        for key in params.keys():
+            params_str += 'key: {}, value: {}<br>'.format(key, params[key])
+        return {'code': 0, 'message': 'SUCCESS'}, 200
+    
+
+    @staticmethod
+    def get(id: str):
+        print('read')
+        try:
+            cheese = CheeseDao.find_by_id(id)
+            if cheese:
+                return cheese.json()
+        except Exception as e:
+            return {'message': 'Cheese not found'}, 404
+
+
+    @staticmethod
+    def update():
+        args = parser.parse_args()
+        print('updated')
+        return {'message': 'SUCCESS'}, 200
+
+
+    @staticmethod
+    def delete():
+        args = parser.parse_args()
+        print('deleted')
+        return {'message': 'SUCCESS'}, 200
+
 
