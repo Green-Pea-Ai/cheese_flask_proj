@@ -39,8 +39,10 @@ class CheeseDao(CheeseDto):
 
     @staticmethod
     def bulk():
+        print("========cheese DAO 1========")
         cheeseDfo = CheeseDfo()
-        df = CheeseDfo.new()
+        df = cheeseDfo.cheese_df()
+        print("========cheese DAO 2========")
         print(df.head())
         session.bulk_insert_mappings(CheeseDto, df.to_dict(orient="records"))
         session.commit()

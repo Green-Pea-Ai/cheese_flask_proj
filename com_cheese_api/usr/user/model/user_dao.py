@@ -64,7 +64,7 @@ class UserDao(UserDto):
         return session.query(func.count(cls.user_no)).one()
 
     @classmethod
-    def find_all(cls):  
+    def find_all(cls):
         # print(session.query(cls))
         sql = cls.query
         df = pd.read_sql(sql.statement, sql.session.bind)

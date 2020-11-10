@@ -17,22 +17,22 @@ class ReviewDfo(object):
         self.data = os.path.join(os.path.abspath(os.path.dirname(__file__))+'/data')
         self.odf = None
 
-    def cheese_df(self):
-        cheese_data_frame = pd.read_csv(
+    def review_df(self):
+        review_data_frame = pd.read_csv(
             '/home/bitai/Documents/EMP_Team/EMP_Main/Ai/cheese_flask_proj/data_set/cheese2pic_real_part10.csv',
             sep=','
         )
 
-        return cheese_data_frame
+        return review_data_frame
 
 
 
-    def data_refine(self, cheese_data_frame):
+    def data_refine(self, review_data_frame):
 
-        print(f'[데이터 행과 열 확인] {cheese_data_frame.shape}')
-        print(f'[타입 확인] {cheese_data_frame.dtypes}')
+        print(f'[리뷰 데이터 행과 열 확인] {review_data_frame.shape}')
+        print(f'[리뷰 데이터 타입 확인] {review_data_frame.dtypes}')
 
-        df = pd.DataFrame(cheese_data_frame)
+        df = pd.DataFrame(review_data_frame)
 
         # '[' 제거
         split = df['review_views'].str.split("[")

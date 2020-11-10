@@ -1,14 +1,15 @@
-from com_emp_api.ext.db import db, openSession
-from com_emp_api.cheese.service import cheeseService
+from com_cheese_api.ext.db import db, openSession
+from com_cheese_api.cop.itm.cheese.model.cheese_service import CheeseService
+
 import pandas as pd
 import json
-from com_emp_api.ext.db import db
 from flask import Response, jsonify
 from flask_restful import Resource, reqparse
 from wordcloud import WordCloud
 import pandas as pd
 from collections import Counter
-
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 
 '''
 결과물 적어서 남겨놓기
@@ -22,9 +23,11 @@ from collections import Counter
 
 
 class CheeseWordCloud():
+
     cheese_list = pd.read_csv('cheese_data.csv', encoding='utf-8')
     cheese_list
     text = ""
+
     with open('./cheese_data.txt', 'r', encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:

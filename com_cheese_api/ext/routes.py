@@ -17,6 +17,11 @@
 #     api.add_resource(SignUpAPI, '/api/sign_up')
 
 
+# ==============================================================
+# ====================                     =====================
+# ====================         TEST        =====================
+# ====================                     =====================
+# ==============================================================
 
 import logging
 from flask import Blueprint
@@ -28,13 +33,28 @@ from com_cheese_api.cop.rev.review.resource.review import ReviewAPI, ReviewsAPI
 
 
 home = Blueprint('home', __name__, url_prefix='/api')
+
+
+# ======================================= USER ================================================
+# login_user = Blueprint('login_user', __name__, url_prefix='/api/login')
 # user = Blueprint('user', __name__, url_prefix='/api/user')
 # users = Blueprint('users', __name__, url_prefix='/api/users')
-# login_user = Blueprint('login_user', __name__, url_prefix='/api/login')
+# =============================================================================================
+
+
+
+# ======================================= CHEESE ==============================================
 # cheese = Blueprint('cheese', __name__, url_prefix='/api/cheese')
-# cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
+cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
+# =============================================================================================
+
+
+
+# ======================================= REVIEW ==============================================
 # review = Blueprint('review', __name__, url_prefix='/api/review')
 # reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
+# =============================================================================================
+
 
 api = Api(home)
 # api = Api(user)
