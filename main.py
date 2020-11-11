@@ -1,24 +1,27 @@
 from flask import Flask
 from flask_restful import Api
-from com_cheese_api.ext.db import url, db
+from com_cheese_api.ext.db import url, db, openSession
 from com_cheese_api.ext.routes import initialize_routes
-# from com_cheese_api.usr.user.resource.user import UserDao
-# from com_cheese_api.cop.rev.review.model.review_kdd import ReviewKdd
-from com_cheese_api.usr.user.model.user_dfo import UserDfo
+
+# from com_cheese_api.usr.user.model.user_dfo import UserDfo
 from com_cheese_api.usr.user.model.user_dao import UserDao
 
-from com_cheese_api.cop.itm.cheese.model.cheese_dfo import CheeseDfo
+# from com_cheese_api.cop.itm.cheese.model.cheese_dfo import CheeseDfo
 from com_cheese_api.cop.itm.cheese.model.cheese_dao import CheeseDao
 
-from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto
+# from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto
 from com_cheese_api.cop.rev.review.model.review_dao import ReviewDao
 
 from flask_cors import CORS
 
 
+Session = openSession()
+session = Session()
+
 
 app = Flask(__name__)
 CORS(app, resources={r'/api/*': {"origins": "*"}})
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -26,6 +29,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 api = Api(app)
+
+
+
+if __name__ == '__main__':
+    
+
+
 
 with app.app_context():
 
@@ -47,12 +57,14 @@ with app.app_context():
 
 
     # cheese_all = CheeseDao.find_all()
+    # print(f'========Cheese all {cheese_all} ==========')
 
-    CheeseDao.bulk()
-    print('\nbulkkkkkkkkkkkk===\n')
+    # CheeseDao.bulk()
+    # print('\nbulkkkkkkkkkkkk===\n')
 
 initialize_routes(api)
 
+print("==========1946")
 
 # dfo = CheeseDfo()
 # cheese_df = dfo.cheese_df()

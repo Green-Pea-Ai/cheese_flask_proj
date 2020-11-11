@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+# from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
+
 
 config = {
     'user': 'bitai',
@@ -25,4 +27,4 @@ engine = create_engine(url)
 def openSession():
     return sessionmaker(bind = engine)
 
-openSession()
+# openSession()

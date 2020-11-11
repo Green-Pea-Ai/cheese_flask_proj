@@ -1,3 +1,59 @@
+import logging
+from flask import Blueprint
+from flask_restful import Api
+from com_cheese_api.cmm.hom.home import Home
+from com_cheese_api.cop.rev.review.model.review_dto import ReviewVo
+from com_cheese_api.cop.rev.review.resource.review import ReviewAPI, ReviewsAPI
+from com_cheese_api.cop.itm.cheese.resource.cheese import Cheeses
+
+home = Blueprint('home', __name__, url_prefix='/api')
+
+# login_user = Blueprint('login_user', __name__, url_prefix='/api/login')
+# user = Blueprint('user', __name__, url_prefix='/api/user')
+# users = Blueprint('users', __name__, url_prefix='/api/users')
+
+# cheese = Blueprint('cheese', __name__, url_prefix='/api/cheese')
+cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
+
+# review = Blueprint('review', __name__, url_prefix='/api/review')
+# reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
+
+
+api = Api(home)
+# api = Api(user)
+api = Api(cheeses)
+
+def initialize_routes(api):
+    
+    api.add_resource(Home, '/api')
+    # api.add_resource(User, '/api/user', '/api/user/<user_id>')
+    api.add_resource(Cheeses, '/api/cheeses')
+
+
+
+@home.errorhandler(500)
+def home_api_error(e):
+    logging.exception('An error occurred during home request. %s' % str(e))
+    return 'An internal error occurred.', 500
+
+# @user.errorhandler(500)
+# def user_api_error(e):
+#     logging.exception('An error occurred during user request. %s' % str(e))
+#     return 'An internal error occurred.', 500
+
+@cheeses.errorhandler(500)
+def cheeses_api_error(e):
+    logging.exception('An error occurred during cheeses request. %s' % str(e))
+    return 'An internal error occurred.', 500
+
+
+
+# ==============================================================
+# ====================                     =====================
+# ====================         TEST        =====================
+# ====================                     =====================
+# ==============================================================
+
 # from com_cheese_api.home.api import HomeAPI
 # from com_cheese_api.cheese.cheese_api import CheeseAPI
 # from com_cheese_api.board.board_api import BoardAPI
@@ -17,68 +73,3 @@
 #     api.add_resource(SignUpAPI, '/api/sign_up')
 
 
-# ==============================================================
-# ====================                     =====================
-# ====================         TEST        =====================
-# ====================                     =====================
-# ==============================================================
-
-import logging
-from flask import Blueprint
-from flask_restful import Api
-# from com_cheese_api.resources.home import Home
-from com_cheese_api.cmm.hom.home import Home
-from com_cheese_api.cop.rev.review.model.review_dto import ReviewVo
-from com_cheese_api.cop.rev.review.resource.review import ReviewAPI, ReviewsAPI
-
-
-home = Blueprint('home', __name__, url_prefix='/api')
-
-# ==============================================================
-# ====================                     =====================
-# ====================         USER        =====================
-# ====================                     =====================
-# ==============================================================
-# login_user = Blueprint('login_user', __name__, url_prefix='/api/login')
-# user = Blueprint('user', __name__, url_prefix='/api/user')
-# users = Blueprint('users', __name__, url_prefix='/api/users')
-
-
-
-# ==============================================================
-# ====================                     =====================
-# ====================        CHEESE       =====================
-# ====================                     =====================
-# ==============================================================
-# cheese = Blueprint('cheese', __name__, url_prefix='/api/cheese')
-cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
-
-
-
-# ==============================================================
-# ====================                     =====================
-# ====================        REVIEW       =====================
-# ====================                     =====================
-# ==============================================================
-# review = Blueprint('review', __name__, url_prefix='/api/review')
-# reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
-
-
-api = Api(home)
-# api = Api(user)
-
-def initialize_routes(api):
-    
-    api.add_resource(Home, '/api')
-    # api.add_resource(User, '/api/user', '/api/user/<user_id>')
-
-
-@home.errorhandler(500)
-def home_api_error(e):
-    logging.exception('An error occurred during home request. %s' % str(e))
-    return 'An internal error occurred.', 500
-
-# @user.errorhandler(500)
-# def user_api_error(e):
-#     logging.exception('An error occurred during user request. %s' % str(e))
-#     return 'An internal error occurred.', 500
