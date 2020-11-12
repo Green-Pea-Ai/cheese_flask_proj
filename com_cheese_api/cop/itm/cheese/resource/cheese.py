@@ -69,8 +69,16 @@ class Cheeses(Resource):
         self.parser = reqparse.RequestParser()
 
     @marshal_with(cheese_fields)
-    def post():
+    def post(self):
         print(f'[========Cheese Post!!!========]')
+
+        body = request.get_json()
+        cheese = CheeseDto(**body)
+        CheeseDao.save(cheese)
+        cheese_id = cheese.cheese_id
+
+
+        return {'cheese': str(cheese_id)}, 200
 
         # parser = self.parser
         # args = parser.parse_args()
