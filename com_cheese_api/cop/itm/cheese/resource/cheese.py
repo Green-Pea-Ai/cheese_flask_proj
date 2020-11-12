@@ -69,33 +69,39 @@ class Cheeses(Resource):
         self.parser = reqparse.RequestParser()
 
     @marshal_with(cheese_fields)
-    def post(self):
+    def post():
+        print(f'[========Cheese Post!!!========]')
 
-        parser = self.parser
-        args = parser.parse_args()
+        # parser = self.parser
+        # args = parser.parse_args()
 
-        cheese = CheeseDto(args['cheese_id'], args['ranking'], args['category'],\
-                            args['brand'], args['name'], args['content'],\
-                                args['texture'], args['types'], args['price'], args['img'])
+        # cheese = CheeseDto(args['cheese_id'], args['ranking'], args['category'],\
+        #                     args['brand'], args['name'], args['content'],\
+        #                         args['texture'], args['types'], args['price'], args['img'])
         
-        try:
-            CheeseDao.save(cheese)
-            return {'code': 0, 'message' : 'SUCCESS'}, 200
-        except:
-            return {'message': 'cheese insert error!!'}, 500
+        # try:
+        #     CheeseDao.save(cheese)
+        #     return {'code': 0, 'message' : 'SUCCESS'}, 200
+        # except:
+        #     return {'message': 'cheese insert error!!'}, 500
 
 
     @staticmethod
     def get():
 
         print("======get()===================\n\n")
+        cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()
+
+        return jsonify([item.json for item in cheese])
+
+        # 1차 flask -> react 전송 json 데이터, 정렬 안됨
         # cheese = CheeseDao.find_all()
+        # return jsonify([item.json for item in cheese])
 
-        cheese = OrderedDict(list(CheeseDao.find_all()))
+        # 2차 rank로 정렬한 json 데이터 만들기, 완성!
+        # cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()        
+        # return jsonify([item.json for item in cheese])
 
-        return json.dumps(cheese)
-
-        # cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()
 
         # cheese_dto = CheeseDto(args)
 

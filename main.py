@@ -3,6 +3,8 @@ from flask_restful import Api
 from com_cheese_api.ext.db import url, db, openSession
 from com_cheese_api.ext.routes import initialize_routes
 
+
+from com_cheese_api.cmm.hom.home import Home
 # from com_cheese_api.usr.user.model.user_dfo import UserDfo
 from com_cheese_api.usr.user.model.user_dao import UserDao
 
@@ -23,18 +25,17 @@ app = Flask(__name__)
 CORS(app, resources={r'/api/*': {"origins": "*"}})
 
 
+
 app.config['SQLALCHEMY_DATABASE_URI'] = url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db.init_app(app)
-
 api = Api(app)
 
 
 
-if __name__ == '__main__':
-    
+# if __name__ == '__main__':
 
+    
 
 
 with app.app_context():
