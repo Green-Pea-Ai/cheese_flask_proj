@@ -46,7 +46,6 @@ from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseDto, CheeseVo
 # ====================      Resourcing     =====================
 # ====================                     =====================
 # ==============================================================
-
 # Api가 될 녀석
 # 외부에 공표될 부분
 
@@ -62,6 +61,12 @@ cheese_fields = {
     'price': fields.Integer,
     'img': fields.String
 }
+
+# ==============================================================
+# ====================                     =====================
+# ====================      Cheeses        =====================
+# ====================                     =====================
+# ==============================================================
 
 parser = reqparse.RequestParser()
 
@@ -80,13 +85,6 @@ class Cheeses(Resource):
         cheese_id = cheese.cheese_id
 
         return {'cheese': str(cheese_id)}, 200
-
-        # parser = self.parser
-        # args = parser.parse_args()
-
-        # cheese = CheeseDto(args['cheese_id'], args['ranking'], args['category'],\
-        #                     args['brand'], args['name'], args['content'],\
-        #                         args['texture'], args['types'], args['price'], args['img'])
         
         # try:
         #     CheeseDao.save(cheese)
@@ -94,7 +92,7 @@ class Cheeses(Resource):
         # except:
         #     return {'message': 'cheese insert error!!'}, 500
 
-
+    # find_all
     @staticmethod
     def get():
 
@@ -110,26 +108,6 @@ class Cheeses(Resource):
         # 2차 rank로 정렬한 json 데이터 만들기, 완성!
         # cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()        
         # return jsonify([item.json for item in cheese])
-
-
-        # try:
-            
-        #     return {'code': 0, 'message': 'SUCCESS'}, 200
-        # except:
-        #     return {'message': 'An error occured inserting the cheese'}, 500
-        
-
-        # args = parser.parse_args()
-        # print(f'Cheese {args["name"]} added')
-        # params = json.loads(request.get_data(), encoding='utf-8')
-        # if len(params) == 0:
-
-        #     return 'No parameter'
-
-        # params_str = ''
-        # for key in params.keys():
-        #     params_str += 'key: {}, value: {}<br>'.format(key, params[key])
-        # return {'code': 0, 'message': 'SUCCESS'}, 200
     
 
     # @staticmethod
@@ -145,6 +123,28 @@ class Cheeses(Resource):
 
     #     print("===================get() END===================\n\n")
 
+
+
+class Cheese(Resource):
+
+    @marshal_with(cheese_fields)
+    def post(self):
+        print(f'[========Cheese Post!!!========]')
+
+        body = request.get_json()
+        cheese = CheeseDto(**body)
+        CheeseDao.save(cheese)
+        cheese_id = cheese.cheese_id
+
+        return {'cheese': str(cheese_id)}, 200
+    
+    # find_one
+    @staticmethod
+    def get(cheese_id):
+        cheese = CheeseDao.find_by_cheese_id(cheese_id)
+        if cheese:
+            return cheese.json()
+        return {'message': 'not use find_one Cheese.'}, 404
 
     @staticmethod
     def put():
@@ -196,14 +196,8 @@ class Cheeses(Resource):
             return {'message': 'NOT FOUND DATA'}, 404
 
 
-# class Cheese(Resource):
-
-#     @staticmethod
-#     def post():
-    
-#     @staticmethod
-#     def get():
-
+# class CheeseSearch():
+#     ...
 
 
 # class CheeseWordCloud():
