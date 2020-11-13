@@ -65,7 +65,7 @@ with app.app_context():
 
 initialize_routes(api)
 
-print("==========1946")
+print("========== main.py END ==========")
 
 # dfo = CheeseDfo()
 # cheese_df = dfo.cheese_df()

@@ -63,6 +63,8 @@ cheese_fields = {
     'img': fields.String
 }
 
+parser = reqparse.RequestParser()
+
 class Cheeses(Resource):
 
     def __init__(self):
@@ -76,7 +78,6 @@ class Cheeses(Resource):
         cheese = CheeseDto(**body)
         CheeseDao.save(cheese)
         cheese_id = cheese.cheese_id
-
 
         return {'cheese': str(cheese_id)}, 200
 
@@ -97,7 +98,7 @@ class Cheeses(Resource):
     @staticmethod
     def get():
 
-        print("======get()===================\n\n")
+        print("===================get()===================\n\n")
         cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()
 
         return jsonify([item.json for item in cheese])
@@ -110,10 +111,6 @@ class Cheeses(Resource):
         # cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()        
         # return jsonify([item.json for item in cheese])
 
-
-        # cheese_dto = CheeseDto(args)
-
-        # return cheese_dto.dump(cheese).data
 
         # try:
             
@@ -136,28 +133,76 @@ class Cheeses(Resource):
     
 
     # @staticmethod
-    # def get(id: str):
-    #     print('read')
+    # def get(cheese_id: str):
+    #     print('read one')
     #     try:
-    #         cheese = CheeseDao.find_by_id(id)
+    #         print(f'Cheese ID is {cheese_id}')
+    #         cheese = CheeseDao.find_one(cheese_id)
     #         if cheese:
     #             return cheese.json()
     #     except Exception as e:
     #         return {'message': 'Cheese not found'}, 404
 
-
-    # @staticmethod
-    # def update():
-    #     args = parser.parse_args()
-    #     print('updated')
-    #     return {'message': 'SUCCESS'}, 200
+    #     print("===================get() END===================\n\n")
 
 
-    # @staticmethod
-    # def delete():
-    #     args = parser.parse_args()
-    #     print('deleted')
-    #     return {'message': 'SUCCESS'}, 200
+    @staticmethod
+    def put():
+        print("=================== put() HEAD ===================\n\n")
+        parser.add_argument('cheese_id')
+        parser.add_argument('ranking')
+        parser.add_argument('category')
+        parser.add_argument('brand')
+        parser.add_argument('name')
+        parser.add_argument('content')
+        parser.add_argument('texture')
+        parser.add_argument('types')
+        parser.add_argument('price')
+        parser.add_argument('img')
+
+        args = parser.parse_args()
+        CheeseDao.update(args)
+        cheese = CheeseDao.find_one(args.cheese_id)
+        if args.ranking == cheese.ranking and\
+            args.category == cheese.category and\
+            args.brand == cheese.brand and\
+            args.name == cheese.name and\
+            args.content == cheese.content and\
+            args.texture == cheese.texture and\
+            args.types == cheese.types and\
+            args.price == cheese.price and\
+            args.img == cheese.img:
+                print(f'Cheese Update Success!!')
+                return cheese.json(), 200
+        else:
+            print(f'Cheese Update Fail!!')
+            return {'message': 'Cheese not found'}, 404
+
+
+    @staticmethod
+    def delete():
+        print("=================== delete() HEAD ===================\n\n")
+        try:
+            args = parser.parse_args()
+            params = json.loads(request.get_data(), encoding='utf-8')
+            print(args)
+            print(params['cheese_id'])
+            print("======== del =========")
+            print(CheeseDao.delete(params['cheese_id']))
+            print('deleted')
+            return {'message': 'SUCCESS'}, 200
+
+        except Exception as e:
+            return {'message': 'NOT FOUND DATA'}, 404
+
+
+# class Cheese(Resource):
+
+#     @staticmethod
+#     def post():
+    
+#     @staticmethod
+#     def get():
 
 
 
