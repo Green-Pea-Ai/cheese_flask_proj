@@ -1,4 +1,5 @@
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto
+from com_cheese_api.cop.rev.review.model.review_dfo import ReviewDfo
 from com_cheese_api.ext.db import db, openSession
 # ==============================================================
 # ====================                     =====================
@@ -12,12 +13,24 @@ session = Session()
 
 class ReviewDao(ReviewDto):
 
-    @classmethod
-    def bulk(cls, review_dfo):
-        dfo = review_dfo.create()
-        print("리뷰 데이터 insert!!!")
-        print(dfo.head())
-        session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
+    # No value for argument 'review_dfo' 
+    # in classmethod callpylint(no-value-for-parameter)
+    # @classmethod
+    # def bulk(cls, review_dfo):
+    #     dfo = review_dfo.create()
+    #     print("리뷰 데이터 insert!!!")
+    #     print(dfo.head())
+    #     session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
+    #     session.commit()
+    #     session.close()
+
+    @staticmethod
+    def bulk():
+        print(f'========Reviews Data Insert!!!========')
+        reviewDfo = ReviewDfo()
+        df = reviewDfo.review_df_refine()
+        print(df.head())
+        session.bulk_insert_mappings(ReviewDto, df.to_dict(orient="records"))
         session.commit()
         session.close()
 

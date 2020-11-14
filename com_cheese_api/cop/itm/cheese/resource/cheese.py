@@ -77,26 +77,19 @@ class Cheeses(Resource):
 
     @marshal_with(cheese_fields)
     def post(self):
-        print(f'[========Cheese Post!!!========]')
-
-        body = request.get_json()
-        cheese = CheeseDto(**body)
-        CheeseDao.save(cheese)
-        cheese_id = cheese.cheese_id
-
-        return {'cheese': str(cheese_id)}, 200
-        
+        print(f'[========Cheeses POST!!!(bulk)========]')
+        CheeseDao.bulk()
         # try:
         #     CheeseDao.save(cheese)
         #     return {'code': 0, 'message' : 'SUCCESS'}, 200
         # except:
         #     return {'message': 'cheese insert error!!'}, 500
 
-    # find_all
+    # cheese find_all
     @staticmethod
     def get():
 
-        print("===================get()===================\n\n")
+        print("=================== Cheeses GET() HEAD ===================\n\n")
         cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()
 
         return jsonify([item.json for item in cheese])
@@ -108,7 +101,36 @@ class Cheeses(Resource):
         # 2차 rank로 정렬한 json 데이터 만들기, 완성!
         # cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()        
         # return jsonify([item.json for item in cheese])
+
+    print("=================== Cheeses GET() END ===================\n\n")
+
+
+
+# ==============================================================
+# ====================                     =====================
+# ====================       Cheese        =====================
+# ====================                     =====================
+# ==============================================================
+class Cheese(Resource):
+
+    @marshal_with(cheese_fields)
+    def post(self):
+        print(f'[========Cheese POST!!!========]')
+        body = request.get_json()
+        cheese = CheeseDto(**body)
+        CheeseDao.save(cheese)
+        cheese_id = cheese.cheese_id
+
+        return {'cheese': str(cheese_id)}, 200
     
+    # find_one
+    @staticmethod
+    def get(cheese_id):
+        print("=================== Cheese GET() HEAD ===================\n\n")
+        cheese = CheeseDao.find_by_cheese(cheese_id)
+        if cheese:
+            return cheese.json()
+        return {'message': 'Not use find_one Cheese.'}, 404
 
     # @staticmethod
     # def get(cheese_id: str):
@@ -121,34 +143,9 @@ class Cheeses(Resource):
     #     except Exception as e:
     #         return {'message': 'Cheese not found'}, 404
 
-    #     print("===================get() END===================\n\n")
-
-
-
-class Cheese(Resource):
-
-    @marshal_with(cheese_fields)
-    def post(self):
-        print(f'[========Cheese Post!!!========]')
-
-        body = request.get_json()
-        cheese = CheeseDto(**body)
-        CheeseDao.save(cheese)
-        cheese_id = cheese.cheese_id
-
-        return {'cheese': str(cheese_id)}, 200
-    
-    # find_one
-    @staticmethod
-    def get(cheese_id):
-        cheese = CheeseDao.find_by_cheese_id(cheese_id)
-        if cheese:
-            return cheese.json()
-        return {'message': 'not use find_one Cheese.'}, 404
-
     @staticmethod
     def put():
-        print("=================== put() HEAD ===================\n\n")
+        print("=================== PUT() HEAD ===================\n\n")
         parser.add_argument('cheese_id')
         parser.add_argument('ranking')
         parser.add_argument('category')
@@ -181,12 +178,12 @@ class Cheese(Resource):
 
     @staticmethod
     def delete():
-        print("=================== delete() HEAD ===================\n\n")
+        print("=================== DELETE() HEAD ===================\n\n")
         try:
             args = parser.parse_args()
             params = json.loads(request.get_data(), encoding='utf-8')
-            print(args)
-            print(params['cheese_id'])
+            # print(args)
+            # print(params['cheese_id'])
             print("======== del =========")
             print(CheeseDao.delete(params['cheese_id']))
             print('deleted')

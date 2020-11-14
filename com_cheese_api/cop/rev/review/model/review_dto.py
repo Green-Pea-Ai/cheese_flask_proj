@@ -30,13 +30,13 @@ class ReviewDto(db.Model):
 
     # FK
     #user_id = db.Column(db.String(10), db.ForeignKey(UserDto.user_id))
-    user_no = db.Column(db.Integer, db.ForeignKey(UserDto.user_no))
-    cheese_id = db.Column(db.String(30), db.ForeignKey(CheeseDto.cheese_id))
+    # user_no = db.Column(db.Integer, db.ForeignKey(UserDto.user_no))
+    # cheese_id = db.Column(db.String(30), db.ForeignKey(CheeseDto.cheese_id))
 
 
     # 관계 설정
     # user = db.relationship('UserDto', back_populates='reviews')
-    #item = db.relationship('CheeseDto', back_populates='reviews')
+    # item = db.relationship('CheeseDto', back_populates='reviews')
 
     def __init__(self, review_id, review_title, review_detail, user_no, cheese_id):
         self.review_id = review_id

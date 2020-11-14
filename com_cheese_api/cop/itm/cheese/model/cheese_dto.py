@@ -36,7 +36,7 @@ class CheeseDto(db.Model):
     price : int = db.Column(db.Integer)
     img : str = db.Column(db.String(255))
 
-    # dairy = db.relationship('DiaryDto', lazy='dynamic')
+    # diary = db.relationship('DiaryDto', lazy='dynamic')
     # orders = db.relationship('OrderDto', back_populates='cheese', lazy='dynamic')
     # prices = db.relationship('PriceDto', back_populates='cheese', lazy='dynamic')
 

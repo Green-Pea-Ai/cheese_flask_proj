@@ -68,8 +68,8 @@ class CheeseDao(CheeseDto):
         return cls.query.filter_by(name == name).all()
 
     @classmethod
-    def find_by_cheese_id(cls, cheese_id):
-        return cls.query.filter_by(cheese_id == cheese_id).first()
+    def find_by_cheese(cls, cheese_id):
+        return cls.query.filter_by(cheese_id == cheese_id).one()
 
 
     @classmethod

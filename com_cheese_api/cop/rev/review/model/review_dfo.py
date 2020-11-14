@@ -27,7 +27,7 @@ class ReviewDfo(object):
 
 
 
-    def data_refine(self, review_data_frame):
+    def review_df_refine(self, review_data_frame):
 
         print(f'[리뷰 데이터 행과 열 확인] {review_data_frame.shape}')
         print(f'[리뷰 데이터 타입 확인] {review_data_frame.dtypes}')
