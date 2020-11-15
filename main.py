@@ -44,6 +44,8 @@ with app.app_context():
     print(f'===== Users Total Count is {user_count} =====')
     if user_count[0] == 0:
         UserDao.bulk()
+    else:
+        print("Users Data exists...")
 
     # user_all = UserDao.find_all()
     print(f'insert 테스트!!')
@@ -51,15 +53,25 @@ with app.app_context():
     # UserDao.bulk()
     # user_all.bulk()
 
+
 # ================================= Cheese =================================
-    cheese_find_one = CheeseDao.find_by_cheese
-    print(f'===== Cheese find one {cheese_find_one} =====')
+    cheese_count = CheeseDao.count()
+
+    
+    # cheese_id =
+    # cheese_find_one = CheeseDao.find_by_cheese(cheese_id)
+    # print(f'===== Cheese find one {cheese_find_one} =====')
 
     # cheese_all = CheeseDao.find_all()
     # print(f'========Cheese all {cheese_all} ==========')
 
     print(f'==========Cheeses Data Insert!!!==========')
-    CheeseDao.bulk()
+    print(f'===== Cheeses Total Count is {cheese_count} =====')
+    if cheese_count[0] == 0:
+        CheeseDao.bulk()
+    else:
+        print("Cheeses Data exists...")
+
 
 # ================================= Review =================================
     print(f'==========Reviews Data Insert!!!==========')
@@ -70,18 +82,17 @@ initialize_routes(api)
 
 print("========== main.py END ==========")
 
+
+
 # dfo = CheeseDfo()
 # cheese_df = dfo.cheese_df()
 # df = dfo.cheese_data_refine(cheese_df)
-
-
 
 # ================ CheeseDfo 테스트 ================
 # dfo = CheeseDfo()
 # print('\nwow!!!!!\n')
 # df = dfo.new()
 # print(f'치즈 Dfo 테스트\n\n', df.head(10))
-
 
 # =================================================
 # kdd = ReviewKdd()

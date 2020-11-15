@@ -44,6 +44,9 @@ class CheeseDao(CheeseDto):
         session.commit()
         session.close()
 
+    @classmethod
+    def count(cls):
+        return session.query(func.count(cls.cheese_id)).one()
 
     @staticmethod
     def save(cheese):
@@ -59,17 +62,15 @@ class CheeseDao(CheeseDto):
         return cls.query.all()
 
     @classmethod
-    def find_one(cls, cheese_id):
-        return session.query(cls)\
-            .filter(cls.cheese_id == cheese_id).one()
-
-    @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(name == name).all()
 
     @classmethod
     def find_by_cheese(cls, cheese_id):
-        return cls.query.filter_by(cheese_id == cheese_id).one()
+        # rst = cls.query.filter(cls.cheese_id == cheese_id).one()
+        # print(f'find_by_cheese {rst}')
+        return session.query(cls).filter(cls.cheese_id == cheese_id).one()
+        # return session.query(func.filter(cls.cheese_id == cheese_id)).one()
 
 
     @classmethod

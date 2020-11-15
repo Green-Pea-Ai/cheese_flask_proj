@@ -91,6 +91,7 @@ class Cheeses(Resource):
 
         print("=================== Cheeses GET() HEAD ===================\n\n")
         cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()
+        print("=================== Cheeses GET() END ===================\n\n")
 
         return jsonify([item.json for item in cheese])
 
@@ -102,8 +103,7 @@ class Cheeses(Resource):
         # cheese = CheeseDao.query.order_by(CheeseDao.ranking).all()        
         # return jsonify([item.json for item in cheese])
 
-    print("=================== Cheeses GET() END ===================\n\n")
-
+print("=================== Cheeses Api END ===================")
 
 
 # ==============================================================
@@ -113,24 +113,37 @@ class Cheeses(Resource):
 # ==============================================================
 class Cheese(Resource):
 
-    @marshal_with(cheese_fields)
-    def post(self):
+    @staticmethod
+    def post():
         print(f'[========Cheese POST!!!========]')
         body = request.get_json()
         cheese = CheeseDto(**body)
         CheeseDao.save(cheese)
         cheese_id = cheese.cheese_id
 
-        return {'cheese': str(cheese_id)}, 200
+        return {'cheese_id': str(cheese_id)}, 200
     
     # find_one
     @staticmethod
-    def get(cheese_id):
+    def get(cheese_id: str):
         print("=================== Cheese GET() HEAD ===================\n\n")
-        cheese = CheeseDao.find_by_cheese(cheese_id)
-        if cheese:
-            return cheese.json()
-        return {'message': 'Not use find_one Cheese.'}, 404
+        try:
+            # parser.add_argument('cheese_id')
+            # args = parser.parse_args()
+            # cheese_id = args.cheese_id
+            # print(f'Cheese ID is {cheese_id}')
+            cheese = CheeseDao.find_by_cheese(cheese_id)
+            print(f'Cheese is {cheese}\n')
+            type(cheese)
+            if cheese:
+                print(f'test2 {cheese}\n')
+                # cheese.json() -> ???
+                print(f'============{jsonify(cheese.json())}')
+                return jsonify([cheese.json()]), 200
+                # return json.dumps(cheese.json()), 200
+        except Exception as e: 
+            print('error', e)
+            return {'message': 'Not use find_by_cheese()'}, 404
 
     # @staticmethod
     # def get(cheese_id: str):
@@ -145,7 +158,7 @@ class Cheese(Resource):
 
     @staticmethod
     def put():
-        print("=================== PUT() HEAD ===================\n\n")
+        print("=================== Cheese PUT() HEAD ===================\n\n")
         parser.add_argument('cheese_id')
         parser.add_argument('ranking')
         parser.add_argument('category')
@@ -159,7 +172,7 @@ class Cheese(Resource):
 
         args = parser.parse_args()
         CheeseDao.update(args)
-        cheese = CheeseDao.find_one(args.cheese_id)
+        cheese = CheeseDao.find_by_cheese(args.cheese_id)
         if args.ranking == cheese.ranking and\
             args.category == cheese.category and\
             args.brand == cheese.brand and\
@@ -178,7 +191,7 @@ class Cheese(Resource):
 
     @staticmethod
     def delete():
-        print("=================== DELETE() HEAD ===================\n\n")
+        print("=================== Cheese DELETE() HEAD ===================\n\n")
         try:
             args = parser.parse_args()
             params = json.loads(request.get_data(), encoding='utf-8')
@@ -192,6 +205,7 @@ class Cheese(Resource):
         except Exception as e:
             return {'message': 'NOT FOUND DATA'}, 404
 
+print("=================== Cheese Api END ===================")
 
 # class CheeseSearch():
 #     ...

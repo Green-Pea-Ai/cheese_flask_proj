@@ -248,9 +248,9 @@ class CheeseDfo(object):
     #     return cheese_train, cheese_test
 
 
-if __name__ == '__main__' :
-    dfo = CheeseDfo()
-    dfo.cheese_data_refine()
+# if __name__ == '__main__' :
+#     dfo = CheeseDfo()
+#     dfo.cheese_data_refine()
 
 
 
