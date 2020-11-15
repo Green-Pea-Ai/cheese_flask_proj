@@ -4,7 +4,9 @@ from flask_restful import Api
 from com_cheese_api.cmm.hom.home import Home
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewVo
 from com_cheese_api.cop.rev.review.resource.review import ReviewAPI, ReviewsAPI
+
 from com_cheese_api.cop.itm.cheese.resource.cheese import Cheeses, Cheese
+from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseVo
 
 
 home = Blueprint('home', __name__, url_prefix='/api')
@@ -25,10 +27,11 @@ api = Api(home)
 api = Api(cheeses)
 
 def initialize_routes(api):
-    
+    # cheese = CheeseVo()
+
     api.add_resource(Home, '/api')
     # api.add_resource(User, '/api/user', '/api/user/<user_id>')
-    api.add_resource(Cheese, '/api/cheese')
+    api.add_resource(Cheese, '/api/cheese', '/api/cheese/<cheese_id>')
     api.add_resource(Cheeses, '/api/cheeses')
 
 

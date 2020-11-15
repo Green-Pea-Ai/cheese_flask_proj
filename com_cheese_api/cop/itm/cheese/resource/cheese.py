@@ -139,8 +139,8 @@ class Cheese(Resource):
                 print(f'test2 {cheese}\n')
                 # cheese.json() -> ???
                 print(f'============{jsonify(cheese.json())}')
-                return jsonify([cheese.json()]), 200
-                # return json.dumps(cheese.json()), 200
+                # return jsonify([cheese.json]), 200
+                return json.dumps(cheese.json()), 200
         except Exception as e: 
             print('error', e)
             return {'message': 'Not use find_by_cheese()'}, 404
