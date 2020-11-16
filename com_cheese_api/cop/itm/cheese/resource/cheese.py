@@ -8,6 +8,7 @@ import matplotlib.font_manager as fm
 from flask import request, jsonify
 from flask_restful import Resource, reqparse, marshal_with, fields
 import json
+import ast
 from collections import OrderedDict
 
 from com_cheese_api.ext.db import db, openSession
@@ -134,27 +135,21 @@ class Cheese(Resource):
             # print(f'Cheese ID is {cheese_id}')
             cheese = CheeseDao.find_by_cheese(cheese_id)
             print(f'Cheese is {cheese}\n')
-            type(cheese)
+            print(type(cheese))
+            print('\n')
             if cheese:
                 print(f'test2 {cheese}\n')
                 # cheese.json() -> ???
-                print(f'============{jsonify(cheese.json())}')
+                # print(f'============{jsonify(cheese.json())}')
                 # return jsonify([cheese.json]), 200
-                return json.dumps(cheese.json()), 200
-        except Exception as e: 
+
+                # str_w_quotes = ast.literal_eval(cheese.json)
+                
+                return json.dumps(cheese.json, ensure_ascii=False), 200
+        except Exception as e:
             print('error', e)
             return {'message': 'Not use find_by_cheese()'}, 404
 
-    # @staticmethod
-    # def get(cheese_id: str):
-    #     print('read one')
-    #     try:
-    #         print(f'Cheese ID is {cheese_id}')
-    #         cheese = CheeseDao.find_one(cheese_id)
-    #         if cheese:
-    #             return cheese.json()
-    #     except Exception as e:
-    #         return {'message': 'Cheese not found'}, 404
 
     @staticmethod
     def put():
