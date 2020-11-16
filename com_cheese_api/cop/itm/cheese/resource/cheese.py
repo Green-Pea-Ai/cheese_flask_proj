@@ -166,22 +166,53 @@ class Cheese(Resource):
         parser.add_argument('img')
 
         args = parser.parse_args()
-        CheeseDao.update(args)
-        cheese = CheeseDao.find_by_cheese(args.cheese_id)
-        if args.ranking == cheese.ranking and\
-            args.category == cheese.category and\
-            args.brand == cheese.brand and\
-            args.name == cheese.name and\
-            args.content == cheese.content and\
-            args.texture == cheese.texture and\
-            args.types == cheese.types and\
-            args.price == cheese.price and\
-            args.img == cheese.img:
-                print(f'Cheese Update Success!!')
-                return cheese.json(), 200
-        else:
-            print(f'Cheese Update Fail!!')
-            return {'message': 'Cheese not found'}, 404
+        print(f'===========args\n {args}')
+
+        # ch_ranking = args.ranking
+        # print(f'======== ch_ranking :: {ch_ranking}')
+
+        # CheeseDao.update(args)
+        # cheese = CheeseDao.find_by_cheese(args.cheese_id)
+
+        cheese = CheeseDto(args['cheese_id'], \
+                            args['ranking'], \
+                            args['category'],\
+                            args['brand'],\
+                            args['name'],\
+                            args['content'],\
+                            args['texture'],\
+                            args['types'],\
+                            args['price'],\
+                            args['img'])
+        print("\n=========== Cheese PUT() Tail ==========")
+        print(f'===========args 2\n {args}')
+        print("========================================\n")
+
+        try:
+            # cheese = CheeseDao.find_by_cheese(args.cheese_id)
+            print(f"========{cheese}========\n")
+            CheeseDao.update(args)
+            return {'code': 0, 'message': 'SUCCESS'}, 200
+        except:
+            return {'message': 'update fail!!'}, 500
+
+
+        # if args.ranking == cheese.ranking and\
+        #     args.category == cheese.category and\
+        #     args.brand == cheese.brand and\
+        #     args.name == cheese.name and\
+        #     args.content == cheese.content and\
+        #     args.texture == cheese.texture and\
+        #     args.types == cheese.types and\
+        #     args.price == cheese.price and\
+        #     args.img == cheese.img:
+        #         print(f'[cheese.py] -> Cheese Update Success!!')
+        #         # print(f'{cheese.json}')
+
+        #         return cheese.json, 200
+        # else:
+        #     print(f'Cheese Update Fail!!')
+        #     return {'message': 'Cheese not found'}, 404
 
 
     @staticmethod
@@ -202,8 +233,36 @@ class Cheese(Resource):
 
 print("=================== Cheese Api END ===================")
 
-# class CheeseSearch():
-#     ...
+
+class CheeseSearch(Resource):
+
+    # find_by_category
+    @staticmethod
+    def get(category: str):
+        print("=================== Cheese GET() HEAD ===================\n\n")
+        try:
+            parser.add_argument('category')
+            args = parser.parse_args()
+            category = args.category
+            print(f'Category ID is {category}')
+            category = CheeseDao.find_by_category(category)
+            print(f'Category is {category}\n')
+            print(type(category))
+            print('\n')
+            if category:
+                print(f'category test2 {category}\n')
+                # cheese.json() -> ???
+                # print(f'============{jsonify(cheese.json())}')
+                # return jsonify([cheese.json]), 200
+
+                # str_w_quotes = ast.literal_eval(cheese.json)
+                
+                # return json.dumps(category.json, ensure_ascii=False), 200
+                return json.dumps(category[0].json), 200
+                # return jsonify([item.json for item in category]), 200
+        except Exception as e:
+            print('error', e)
+            return {'message': 'Not use find_by_category()'}, 404
 
 
 # class CheeseWordCloud():

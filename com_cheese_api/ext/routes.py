@@ -5,7 +5,7 @@ from com_cheese_api.cmm.hom.home import Home
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewVo
 from com_cheese_api.cop.rev.review.resource.review import ReviewAPI, ReviewsAPI
 
-from com_cheese_api.cop.itm.cheese.resource.cheese import Cheeses, Cheese
+from com_cheese_api.cop.itm.cheese.resource.cheese import Cheeses, Cheese, CheeseSearch
 from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseVo
 
 
@@ -17,6 +17,7 @@ home = Blueprint('home', __name__, url_prefix='/api')
 
 cheese = Blueprint('cheese', __name__, url_prefix='/api/cheese')
 cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
+# cheese_search = Blueprint('cheese_search', __name__, url_prefix='/api/cheese/search')
 
 # review = Blueprint('review', __name__, url_prefix='/api/review')
 # reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
@@ -24,6 +25,7 @@ cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
 
 api = Api(home)
 # api = Api(user)
+# api = Api(cheese)
 api = Api(cheeses)
 
 def initialize_routes(api):
@@ -33,6 +35,7 @@ def initialize_routes(api):
     # api.add_resource(User, '/api/user', '/api/user/<user_id>')
     api.add_resource(Cheese, '/api/cheese', '/api/cheese/<cheese_id>')
     api.add_resource(Cheeses, '/api/cheeses')
+    api.add_resource(CheeseSearch, '/api/cheese/search', '/api/cheese/search/<category>')
 
 
 
@@ -44,6 +47,11 @@ def home_api_error(e):
 # @user.errorhandler(500)
 # def user_api_error(e):
 #     logging.exception('An error occurred during user request. %s' % str(e))
+#     return 'An internal error occurred.', 500
+
+# @cheese.errorhandler(500)
+# def cheese_api_error(e):
+#     logging.exception('An error occurred during cheese request. %s' % str(e))
 #     return 'An internal error occurred.', 500
 
 @cheeses.errorhandler(500)
