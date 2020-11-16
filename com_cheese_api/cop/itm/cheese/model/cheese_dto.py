@@ -71,7 +71,7 @@ class CheeseDto(db.Model):
             'brand':self.brand,
             'name':self.name,
             'content':self.content,
-            'texture':self.types,
+            'texture':self.texture,
             'types':self.types,
             'price':self.price,
             'img':self.img

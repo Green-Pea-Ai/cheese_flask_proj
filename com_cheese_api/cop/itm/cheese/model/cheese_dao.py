@@ -68,10 +68,16 @@ class CheeseDao(CheeseDto):
         return session.query(cls).filter(cls.cheese_id == cheese_id).one()
         # return session.query(func.filter(cls.cheese_id == cheese_id)).one()
 
+    # @classmethod
+    # def find_by_category(cls, category):
+    #     # return session.query(cls).filter(cls.category == category).all()
+    #     return session.query(cls).filter(cls.category.like(category)).all()
+
     @classmethod
     def find_by_category(cls, category):
-        return session.query(cls).filter(cls.category == category).all()
-        # return session.query(cls).filter(cls.category.like(f'%{category}%')).all()
+        # return session.query(cls).filter(cls.category == category).all()
+        print("================find_by_category()================")
+        return session.query(cls).filter(cls.category.like(f'%{category}%')).all()
 
     # @classmethod
     # def find_by_name(cls, name):

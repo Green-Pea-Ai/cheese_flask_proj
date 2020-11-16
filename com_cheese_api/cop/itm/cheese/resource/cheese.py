@@ -237,32 +237,44 @@ print("=================== Cheese Api END ===================")
 class CheeseSearch(Resource):
 
     # find_by_category
-    @staticmethod
-    def get(category: str):
-        print("=================== Cheese GET() HEAD ===================\n\n")
-        try:
-            parser.add_argument('category')
-            args = parser.parse_args()
-            category = args.category
-            print(f'Category ID is {category}')
-            category = CheeseDao.find_by_category(category)
-            print(f'Category is {category}\n')
-            print(type(category))
-            print('\n')
-            if category:
-                print(f'category test2 {category}\n')
-                # cheese.json() -> ???
-                # print(f'============{jsonify(cheese.json())}')
-                # return jsonify([cheese.json]), 200
-
-                # str_w_quotes = ast.literal_eval(cheese.json)
+    # @staticmethod
+    # def get(category: str):
+    #     print("=================== Cheese GET() HEAD ===================\n\n")
+    #     try:
+    #         parser.add_argument('category')
+    #         args = parser.parse_args()
+    #         category = args.category
+    #         print(f'Category ID is {category}')
+    #         category = CheeseDao.find_by_category(category)
+    #         print(f'Category is {category}\n')
+    #         print(type(category))
+    #         print('\n')
+    #         if category:
+    #             print(f'category test2 {category}\n')
+    #             # cheese.json() -> ???
+    #             # print(f'============{jsonify(cheese.json())}')
+    #             # return jsonify([cheese.json]), 200
                 
-                # return json.dumps(category.json, ensure_ascii=False), 200
-                return json.dumps(category[0].json), 200
-                # return jsonify([item.json for item in category]), 200
-        except Exception as e:
-            print('error', e)
-            return {'message': 'Not use find_by_category()'}, 404
+    #             # return json.dumps(category.json, ensure_ascii=False), 200
+    #             # return jsonify([item.json for item in category]), 200
+    #     except Exception as e:
+    #         print('error', e)
+    #         return {'message': 'Not use find_by_category()'}, 404
+    
+    # find_by_category
+    @staticmethod
+    def get(category):
+        print(f'=========== 2222{category}')
+        category = CheeseDao.find_by_category(category)
+        print(f'========category\n {category}')
+
+        category_list = []
+        print(f'========List\n {category_list}')
+
+        for item in category:
+            category_list.append(item.json)
+        print(f'=========Category List\n {category_list}')
+        return jsonify(category_list) 
 
 
 # class CheeseWordCloud():
