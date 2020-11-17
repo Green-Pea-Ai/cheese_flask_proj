@@ -3,7 +3,7 @@ from flask import Blueprint
 from flask_restful import Api
 from com_cheese_api.cmm.hom.home import Home
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewVo
-from com_cheese_api.cop.rev.review.resource.review import ReviewAPI, ReviewsAPI
+from com_cheese_api.cop.rev.review.resource.review import Review, Reviews
 
 from com_cheese_api.cop.itm.cheese.resource.cheese import Cheeses, Cheese, CheeseSearch
 from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseVo
@@ -20,14 +20,18 @@ cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
 cheese_search = Blueprint('cheese_search', __name__, url_prefix='/api/cheese/search')
 
 # review = Blueprint('review', __name__, url_prefix='/api/review')
-# reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
+reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
 
 
 api = Api(home)
 # api = Api(user)
+
 # api = Api(cheese)
 api = Api(cheeses)
 api = Api(cheese_search)
+
+# api = Api(review)
+api = Api(reviews)
 
 def initialize_routes(api):
     # cheese = CheeseVo()
@@ -37,7 +41,7 @@ def initialize_routes(api):
     api.add_resource(Cheese, '/api/cheese', '/api/cheese/<cheese_id>')
     api.add_resource(Cheeses, '/api/cheeses')
     api.add_resource(CheeseSearch, '/api/cheese/search', '/api/cheese/search/<category>')
-
+    api.add_resource(Reviews, '/api/reviews')
 
 
 @home.errorhandler(500)

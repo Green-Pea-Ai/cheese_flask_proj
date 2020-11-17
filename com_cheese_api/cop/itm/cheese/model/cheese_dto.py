@@ -1,21 +1,13 @@
 from com_cheese_api.ext.db import url, db, openSession, engine
 # from com_cheese_api.util.file import FileReader
-from com_cheese_api.cmm.utl.file import FileReader
+# from com_cheese_api.cmm.utl.file import FileReader
 
-from sqlalchemy import func
-from sqlalchemy import and_, or_
+# from flask import Response, jsonify
+# from flask_restful import Resource, reqparse
 
-from flask import request
-from flask import Response, jsonify
-from flask_restful import Resource, reqparse
-
-import pandas as pd
-import numpy as np
 import json
-import os
-import sys
-from typing import List
-from pathlib import Path
+# from typing import List
+# from pathlib import Path
 
 
 class CheeseDto(db.Model):
@@ -26,10 +18,10 @@ class CheeseDto(db.Model):
     # cname으로 하면 DB에 NULL 값이 들어감
     
     cheese_id : str = db.Column(db.String(30), primary_key=True, index=True)
+    name : str = db.Column(db.String(30), primary_key=True)
     ranking : int = db.Column(db.Integer)
     category: str = db.Column(db.String(30))
     brand : str = db.Column(db.String(30))
-    name : str = db.Column(db.String(30))
     content : str = db.Column(db.String(100))
     texture : str = db.Column(db.String(30))
     types : str = db.Column(db.String(30))

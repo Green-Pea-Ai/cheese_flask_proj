@@ -42,19 +42,19 @@ class ReviewDao(ReviewDto):
         session.commit()
 
     @staticmethod
-    def update(review, review_id):
+    def update(review, review_no):
         Session = openSession()
         session = Session()
-        session.query(ReviewDto).filter(ReviewDto.review_id == review.review_id)\
+        session.query(ReviewDto).filter(ReviewDto.review_no == review.review_no)\
             .update({ReviewDto.review_title: review.review_title,
                         ReviewDto.review_detail: review.review_detail})
         session.commit()
 
     @classmethod
-    def delete(cls, review_id):
+    def delete(cls, review_no):
         Session = openSession()
         session = Session()
-        cls.query(ReviewDto.review_id == review_id).delete()
+        cls.query(ReviewDto.review_no == review_no).delete()
         session.commit()
 
 
@@ -68,7 +68,7 @@ class ReviewDao(ReviewDto):
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter(ReviewDto.review_id == id).one()
+        return cls.query.filter(ReviewDto.review_no == id).one()
 
 
 class ReviewTF():

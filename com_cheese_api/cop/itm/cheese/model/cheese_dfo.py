@@ -41,7 +41,7 @@ class CheeseDfo(object):
 
     def cheese_df(self):
         cheese_data_frame = pd.read_csv(
-            '/home/bitai/Documents/EMP_Team/EMP_Main/Ai/cheese_flask_proj/com_cheese_api/cop/itm/cheese/data/cheese_data.csv',
+            '/home/bitai/Documents/EMP_Team/EMP_Main/Ai/cheese_flask_proj/com_cheese_api/cop/itm/cheese/data/cheese_data_2.csv',
             sep=','
         )
 
@@ -55,8 +55,8 @@ class CheeseDfo(object):
     # def cheese_data_refine(self, cheese):
 
         df = pd.DataFrame(cheese_data_frame)
-
-        df.drop(df.columns[0], axis=1, inplace=True)
+        # pandas에서 생성한 index 열 제거
+        # df.drop(df.columns[0], axis=1, inplace=True)
         df.drop('country', axis=1, inplace=True)
         df.drop('matching', axis=1, inplace=True)
 

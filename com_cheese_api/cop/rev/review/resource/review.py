@@ -16,15 +16,21 @@ from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto, ReviewVo
 # ====================                     =====================
 # ==============================================================
 
+
 review_fields = {
     'review_title': fields.String,
     'review_detail': fields.String,
     'user_id': fields.String,
     'item_id': fields.Integer
 }
+# ==============================================================
+# ====================                     =====================
+# ====================        Review       =====================
+# ====================                     =====================
+# ==============================================================
 
 # API로 만드는 부분
-class ReviewAPI(Resource):
+class Review(Resource):
 
     def __init__(self):
         self.parser = reqparse.RequestParser()
@@ -53,9 +59,9 @@ class ReviewAPI(Resource):
         return {'message': 'Review not found'}, 404
 
     @staticmethod
-    def put(self, review, review_id):
+    def put(self, review, review_no):
         parser = self.parser
-        parser.add_argument('review_id', type=int, required=False, help='This field cannot be left blank')
+        parser.add_argument('review_no', type=int, required=False, help='This field cannot be left blank')
         parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
         parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
         parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
@@ -64,15 +70,26 @@ class ReviewAPI(Resource):
         review = ReviewVo()
         review.review_title = args['review_title']
         review.review_detail = args['review_detail']
-        review.review_id = args['review_id']
+        review.review_no = args['review_no']
         try:
-            ReviewDao.update(review, review_id)
+            ReviewDao.update(review, review_no)
             return {'message': 'Review was Updated Successfully'}, 200
         except:
             return {'message': 'An Error Occured Updating the Review'}, 500
 
 
+
+# ==============================================================
+# ====================                     =====================
+# ====================       Reviews       =====================
+# ====================                     =====================
+# ==============================================================
+
 # 리뷰 리스트 
-class ReviewsAPI(Resource):
+class Reviews(Resource):
+    def post():
+        print(f'========== Reviews POST() HEAD ==========')
+        # ReviewDao.bulk()
+
     def get(self):
         return {'reivews': list(map(lambda review: review.json(), ReviewDao.find_all()))}

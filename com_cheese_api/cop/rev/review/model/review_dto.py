@@ -24,22 +24,26 @@ class ReviewDto(db.Model):
     __tablename__="reviews"
     __table_args__={'mysql_collate':'utf8_general_ci'}
 
-    review_id: int = db.Column(db.Integer, primary_key=True, index=True)
+    review_no: int = db.Column(db.Integer, primary_key=True, index=True) # PK
+    name = db.Column(db.String(30), db.ForeignKey(CheeseDto.name)) # FK, PK(name): 치즈 제품명
     review_title: str = db.Column(db.String(100))
     review_detail: str = db.Column(db.String(500))
+    user_no = db.Column(db.Integer, db.ForeignKey(UserDto.user_no)) # FK(user_no)
+    cheese_id = db.Column(db.String(30), db.ForeignKey(CheeseDto.cheese_id)) # FK(cheese_id)
 
-    # FK
-    #user_id = db.Column(db.String(10), db.ForeignKey(UserDto.user_id))
-    # user_no = db.Column(db.Integer, db.ForeignKey(UserDto.user_no))
-    # cheese_id = db.Column(db.String(30), db.ForeignKey(CheeseDto.cheese_id))
+    # user_id = db.Column(db.String(10), db.ForeignKey(UserDto.user_id)) # FK: 사용안함
 
-
+    # time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    # time_created = Column(DateTime(timezone=True), server_default=func.now())
+    # time_updated = Column(DateTime(timezone=True), onupdate=func.now())
+    
     # 관계 설정
-    # user = db.relationship('UserDto', back_populates='reviews')
-    # item = db.relationship('CheeseDto', back_populates='reviews')
+    user = db.relationship('UserDto', back_populates='reviews')
+    cheese = db.relationship('CheeseDto', back_populates='reviews')
 
-    def __init__(self, review_id, review_title, review_detail, user_no, cheese_id):
-        self.review_id = review_id
+    def __init__(self, review_no, name, review_title, review_detail, user_no, cheese_id):
+        self.review_no = review_no
+        self.name = name
         self.review_title = review_title
         self.review_detail = review_detail
         # self.user_id = user_id
@@ -47,24 +51,26 @@ class ReviewDto(db.Model):
         self.cheese_id = cheese_id
 
     def __repr__(self):
-        return f'review_id={self.review_id}, user_no={self.user_no}, cheese_id={self.cheese_id},\
+        return f'review_no={self.review_no}, name={self.name}, user_no={self.user_no}, cheese_id={self.cheese_id},\
             review_title={self.review_title}, review_detail={self.review_detail}'
 
     def json(self):
         return {
-            'review_id': self.review_id,
+            'review_no': self.review_no,
+            'name': self.name,
+            'review_title': self.review_title,
+            'review_detail': self.review_detail,
             #'user_id': self.user_id,
             'user_no': self.user_no,
-            'cheese_id': self.cheese_id,
-            'review_title': self.review_title,
-            'review_detail': self.review_detail
+            'cheese_id': self.cheese_id
         }
 
 
 class ReviewVo():
-    review_id: int = 0
+    review_no: int = 0
+    name: str = ''
+    review_title: str = ''
+    review_detail: str = ''
     # user_id: str = ''
     user_no: int = 0
     cheese_id: int = 0
-    review_title: str = ''
-    review_detail: str = ''
