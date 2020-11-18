@@ -1,6 +1,9 @@
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto
 from com_cheese_api.cop.rev.review.model.review_dfo import ReviewDfo
 from com_cheese_api.ext.db import db, openSession
+
+from sqlalchemy import func, and_, or_
+
 # ==============================================================
 # ====================                     =====================
 # ====================       Modeling      =====================
@@ -28,11 +31,17 @@ class ReviewDao(ReviewDto):
     def bulk():
         print(f'========Reviews Data Insert!!!========')
         reviewDfo = ReviewDfo()
-        df = reviewDfo.review_df_refine()
+        # df = reviewDfo.review_df_refine()
+        df = reviewDfo.review_df()
+        print(f'============ Review bulk()!!! ============')
         print(df.head())
         session.bulk_insert_mappings(ReviewDto, df.to_dict(orient="records"))
         session.commit()
         session.close()
+
+    @classmethod
+    def count(cls):
+        return session.query(func.count(cls.review_no)).one()
 
     @staticmethod
     def save(review):
@@ -42,7 +51,7 @@ class ReviewDao(ReviewDto):
         session.commit()
 
     @staticmethod
-    def update(review, review_no):
+    def update(review):
         Session = openSession()
         session = Session()
         session.query(ReviewDto).filter(ReviewDto.review_no == review.review_no)\

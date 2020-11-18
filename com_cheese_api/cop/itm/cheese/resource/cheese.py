@@ -208,7 +208,13 @@ class Cheeses(Resource):
     @marshal_with(cheese_fields)
     def post(self):
         print(f'[========Cheeses POST!!!(bulk)========]')
-        CheeseDao.bulk()
+
+        cheese_count = CheeseDao.count()
+
+        if cheese_count[0] == 0:
+            CheeseDao.bulk()
+        else:
+            print("Cheeses Data exists...")
         # try:
         #     CheeseDao.save(cheese)
         #     return {'code': 0, 'message' : 'SUCCESS'}, 200

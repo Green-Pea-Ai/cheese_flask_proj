@@ -1,3 +1,4 @@
+from flask.globals import request
 from flask_restful import Resource, reqparse, fields, marshal_with
 from com_cheese_api.cop.rev.review.model.review_dao import ReviewDao
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto, ReviewVo
@@ -18,6 +19,7 @@ from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto, ReviewVo
 
 
 review_fields = {
+    'review_no': fields.Integer,
     'review_title': fields.String,
     'review_detail': fields.String,
     'user_id': fields.String,
@@ -32,24 +34,24 @@ review_fields = {
 # API로 만드는 부분
 class Review(Resource):
 
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
+    # def __init__(self):
+    #     self.parser = reqparse.RequestParser()
     
-    @marshal_with(review_fields)
-    def post(self):
-        parser = self.parser
-        # parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
-        # parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
-        # parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
-        # parser.add_argument('review_detail', type=str, required=False, help='This field cannot be left blank')
-        args = parser.parse_args()
-        review = ReviewDto(args['review_title'], args['review_detail'],\
-                            args['user_id'], args['item_id'])
-        try:
-            ReviewDao.save(review)
-            return {'code' : 0, 'message' : 'SUCCESS'}, 200
-        except:
-            return {'message': 'An error occured inserting the review'}, 500
+    @staticmethod
+    def post():
+        print(f'=========== Review POST!!! ===========')
+        body = request.get_json()
+        review = ReviewDto(**body)
+        ReviewDao.save(review)
+        review_no = review.review_no
+
+        return {'review_no': str(review_no)}, 200
+
+        # try:
+        #     ReviewDao.save(review)
+        #     return {'code' : 0, 'message' : 'SUCCESS'}, 200
+        # except:
+        #     return {'message': 'An error occured inserting the review'}, 500
 
     @staticmethod
     def get(id):
@@ -77,6 +79,9 @@ class Review(Resource):
         except:
             return {'message': 'An Error Occured Updating the Review'}, 500
 
+    @staticmethod
+    def delete():
+        ...
 
 
 # ==============================================================
@@ -87,9 +92,20 @@ class Review(Resource):
 
 # 리뷰 리스트 
 class Reviews(Resource):
-    def post():
+
+    # def __init__(self):
+    #     self.parser = reqparse.RequestParser()
+
+    @marshal_with(review_fields)
+    def post(self):
         print(f'========== Reviews POST() HEAD ==========')
-        # ReviewDao.bulk()
+
+        review_count = ReviewDao.count()
+
+        if review_count[0] == 0:
+            ReviewDao.bulk()
+        else:
+            print("Reviews Data exists...")
 
     def get(self):
         return {'reivews': list(map(lambda review: review.json(), ReviewDao.find_all()))}

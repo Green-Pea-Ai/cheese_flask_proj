@@ -19,7 +19,7 @@ cheese = Blueprint('cheese', __name__, url_prefix='/api/cheese')
 cheeses = Blueprint('cheeses', __name__, url_prefix='/api/cheeses')
 cheese_search = Blueprint('cheese_search', __name__, url_prefix='/api/cheese/search')
 
-# review = Blueprint('review', __name__, url_prefix='/api/review')
+review = Blueprint('review', __name__, url_prefix='/api/review')
 reviews = Blueprint('reviews', __name__, url_prefix='/api/reviews')
 
 
@@ -30,7 +30,7 @@ api = Api(home)
 api = Api(cheeses)
 api = Api(cheese_search)
 
-# api = Api(review)
+api = Api(review)
 api = Api(reviews)
 
 def initialize_routes(api):
@@ -41,6 +41,7 @@ def initialize_routes(api):
     api.add_resource(Cheese, '/api/cheese', '/api/cheese/<cheese_id>')
     api.add_resource(Cheeses, '/api/cheeses')
     api.add_resource(CheeseSearch, '/api/cheese/search', '/api/cheese/search/<category>')
+    api.add_resource(Review, '/api/review')
     api.add_resource(Reviews, '/api/reviews')
 
 

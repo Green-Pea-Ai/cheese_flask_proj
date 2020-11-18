@@ -76,7 +76,12 @@ with app.app_context():
 
 # ================================= Review =================================
     print(f'==========Reviews Data Insert!!!==========')
-    # ReviewDao.bulk()
+    review_count = ReviewDao.count()
+
+    if review_count[0] == 0:
+        ReviewDao.bulk()
+    else:
+        print("Reviews Data exists...")
 
 
 initialize_routes(api)
