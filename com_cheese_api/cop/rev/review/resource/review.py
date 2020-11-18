@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse, fields, marshal_with
 from com_cheese_api.cop.rev.review.model.review_dao import ReviewDao
 from com_cheese_api.cop.rev.review.model.review_dto import ReviewDto, ReviewVo
 
+import json
 
 '''
 결과물 적어서 남겨놓기
@@ -39,7 +40,7 @@ class Review(Resource):
     
     @staticmethod
     def post():
-        print(f'=========== Review POST!!! ===========')
+        print(f'=========== Review POST!!! ===========\n')
         body = request.get_json()
         review = ReviewDto(**body)
         ReviewDao.save(review)
@@ -55,7 +56,7 @@ class Review(Resource):
 
     @staticmethod
     def get(review_no: int):
-        print(f'=========== Review GET!!! ===========')
+        print(f'=========== Review GET!!! ===========\n')
         review = ReviewDao.find_by_id(review_no)
 
         if review:
@@ -83,7 +84,17 @@ class Review(Resource):
 
     @staticmethod
     def delete():
-        ...
+        print(f'=========== Review DELETE() !!! ===========\n')
+        try:
+            params = json.loads(request.get_data(), encoding='utf-8')
+
+            # ???
+            print(ReviewDao.delete(params['review_no']))
+            print('\n=== deleted ===')
+            return {'message': 'SUCCESS'}, 200
+
+        except Exception as e:
+            return {'message': 'NOT FOUND DATA'}, 404
 
 
 # ==============================================================

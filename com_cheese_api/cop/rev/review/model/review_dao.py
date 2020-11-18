@@ -61,10 +61,10 @@ class ReviewDao(ReviewDto):
 
     @classmethod
     def delete(cls, review_no):
-        Session = openSession()
-        session = Session()
-        cls.query(ReviewDto.review_no == review_no).delete()
-        session.commit()
+        # cls.query(ReviewDto.review_no == review_no).delete()
+        review = cls.query.get(review_no)
+        db.session.delete(review)
+        db.session.commit()
 
 
     @classmethod
