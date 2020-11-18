@@ -101,7 +101,7 @@ class Review(Resource):
             params = json.loads(request.get_data(), encoding='utf-8')
 
             # ???
-            print(ReviewDao.delete(params['review_no']))
+            ReviewDao.delete(params['review_no'])
             print('\n=== deleted ===')
             return {'message': 'SUCCESS'}, 200
 
