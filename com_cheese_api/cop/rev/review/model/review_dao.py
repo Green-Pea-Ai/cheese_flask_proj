@@ -52,12 +52,12 @@ class ReviewDao(ReviewDto):
 
     @staticmethod
     def update(review):
-        Session = openSession()
-        session = Session()
         session.query(ReviewDto).filter(ReviewDto.review_no == review.review_no)\
             .update({ReviewDto.review_title: review.review_title,
                         ReviewDto.review_detail: review.review_detail})
         session.commit()
+        session.close()
+        print('[review_dao.py] -> Data Update Complete!')
 
     @classmethod
     def delete(cls, review_no):

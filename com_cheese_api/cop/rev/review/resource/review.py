@@ -23,7 +23,7 @@ review_fields = {
     'review_no': fields.Integer,
     'review_title': fields.String,
     'review_detail': fields.String,
-    'user_id': fields.String,
+    'user_no': fields.Integer,
     'item_id': fields.Integer
 }
 # ==============================================================
@@ -31,6 +31,8 @@ review_fields = {
 # ====================        Review       =====================
 # ====================                     =====================
 # ==============================================================
+
+parser = reqparse.RequestParser()
 
 # API로 만드는 부분
 class Review(Resource):
@@ -40,7 +42,7 @@ class Review(Resource):
     
     @staticmethod
     def post():
-        print(f'=========== Review POST!!! ===========\n')
+        print(f'=========== Review POST()!!! ===========\n')
         body = request.get_json()
         review = ReviewDto(**body)
         ReviewDao.save(review)
@@ -56,7 +58,7 @@ class Review(Resource):
 
     @staticmethod
     def get(review_no: int):
-        print(f'=========== Review GET!!! ===========\n')
+        print(f'=========== Review GET()!!! ===========\n')
         review = ReviewDao.find_by_id(review_no)
 
         if review:
@@ -64,23 +66,33 @@ class Review(Resource):
         return {'message': 'Review not found'}, 404
 
     @staticmethod
-    def put(self, review, review_no):
-        parser = self.parser
-        parser.add_argument('review_no', type=int, required=False, help='This field cannot be left blank')
-        parser.add_argument('user_id', type=int, required=False, help='This field cannot be left blank')
-        parser.add_argument('item_id', type=int, required=False, help='This field cannot be left blank')
-        parser.add_argument('review_title', type=str, required=False, help='This field cannot be left blank')
-        parser.add_argument('review_detail', type=str, required=False, help='This field cannot be left blank')
+    def put():
+        print(f'=========== Review PUT()!!! ===========\n')
+        parser.add_argument('review_no')
+        parser.add_argument('review_title')
+        parser.add_argument('review_detail')
+        parser.add_argument('user_no')
+        parser.add_argument('cheese_id')
+
         args = parser.parse_args()
-        review = ReviewVo()
-        review.review_title = args['review_title']
-        review.review_detail = args['review_detail']
-        review.review_no = args['review_no']
+        print(f'===== args 1 =====\n{args}')
+
+        review = ReviewDto(args['review_no'],\
+                            args['review_title'],\
+                            args['review_detail'],\
+                            args['user_no'],\
+                            args['cheese_id'])
+        print(f'===== args 2 =====\n{args}')
+
         try:
-            ReviewDao.update(review, review_no)
-            return {'message': 'Review was Updated Successfully'}, 200
-        except:
-            return {'message': 'An Error Occured Updating the Review'}, 500
+            print(f'===== {review} =====\n')
+            ReviewDao.update(args)
+            return {'code': 0, 'message': 'SUCCESS'}, 200
+
+        except Exception as e:
+            print(e)
+            return {'message': 'Update Fail!!'}, 500
+            
 
     @staticmethod
     def delete():
@@ -122,3 +134,25 @@ class Reviews(Resource):
 
     def get(self):
         return {'reivews': list(map(lambda review: review.json(), ReviewDao.find_all()))}
+
+
+    # @staticmethod
+    # def put(self, review, review_no):
+    #     parser = self.parser
+    #     parser.add_argument('review_no', type=int, required=False, help='This field cannot be left blank')
+    #     # parser.add_argument('user_no', type=int, required=False, help='review user_no..')
+    #     # parser.add_argument('item_id', type=int, required=False, help='review item_id..')
+    #     parser.add_argument('review_title', type=str, required=False, help='review review_title..')
+    #     parser.add_argument('review_detail', type=str, required=False, help='review review_detail..')
+        
+    #     args = parser.parse_args()
+    #     review = ReviewVo()
+    #     review.review_no = args['review_no']
+    #     review.review_title = args['review_title']
+    #     review.review_detail = args['review_detail']
+
+    #     try:
+    #         ReviewDao.update(review, review_no)
+    #         return {'message': 'Review Updated Success!!'}, 200
+    #     except:
+    #         return {'message': 'Review Updated Fail!!'}, 500
