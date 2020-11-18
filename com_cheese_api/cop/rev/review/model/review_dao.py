@@ -76,8 +76,9 @@ class ReviewDao(ReviewDto):
         return cls.query.filer_by(name == name).all()
 
     @classmethod
-    def find_by_id(cls, id):
-        return cls.query.filter(ReviewDto.review_no == id).one()
+    def find_by_id(cls, review_no):
+        return session.query(cls).filter(cls.review_no == review_no).one()
+        # return cls.query.filter(ReviewDto.review_no == review_no).one()
 
 
 class ReviewTF():

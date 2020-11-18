@@ -45,7 +45,7 @@ class Review(Resource):
         ReviewDao.save(review)
         review_no = review.review_no
 
-        return {'review_no': str(review_no)}, 200
+        return {'review_no': int(review_no)}, 200
 
         # try:
         #     ReviewDao.save(review)
@@ -54,8 +54,10 @@ class Review(Resource):
         #     return {'message': 'An error occured inserting the review'}, 500
 
     @staticmethod
-    def get(id):
-        review = ReviewDao.find_by_id(id)
+    def get(review_no: int):
+        print(f'=========== Review GET!!! ===========')
+        review = ReviewDao.find_by_id(review_no)
+
         if review:
             return review.json()
         return {'message': 'Review not found'}, 404

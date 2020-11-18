@@ -64,7 +64,7 @@ class ReviewDto(db.Model):
 
 
 class ReviewVo():
-    review_no: int = 0    
+    review_no: int = 0
     review_title: str = ''
     review_detail: str = ''
     user_no: int = 0
