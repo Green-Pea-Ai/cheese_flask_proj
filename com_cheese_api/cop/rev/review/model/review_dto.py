@@ -24,6 +24,8 @@ class ReviewDto(db.Model):
     __tablename__="reviews"
     __table_args__={'mysql_collate':'utf8_general_ci'}
 
+    print('commit test')
+
     review_no: int = db.Column(db.Integer, primary_key=True, index=True) # PK
     review_title: str = db.Column(db.String(100))
     review_detail: str = db.Column(db.String(500))
