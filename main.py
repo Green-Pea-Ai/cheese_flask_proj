@@ -38,15 +38,15 @@ with app.app_context():
     db.create_all()
 
 # ================================= User =================================
-    user_count = UserDao.count()
+    # user_count = UserDao.count()
 
-    print(f'USER TABLE CNT : {user_count[0]:10}')
+    # print(f'USER TABLE CNT : {user_count[0]:10}')
 
-    print(f'===== Users Total Count is {user_count} =====')
-    if user_count[0] == 0:
-        UserDao.bulk()
-    else:
-        print("Users Data exists...")
+    # print(f'===== Users Total Count is {user_count} =====')
+    # if user_count[0] == 0:
+    #     UserDao.bulk()
+    # else:
+    #     print("Users Data exists...")
 
     # user_all = UserDao.find_all()
     print(f'insert 테스트!!')
@@ -72,6 +72,12 @@ with app.app_context():
         CheeseDao.bulk()
     else:
         print("Cheeses Data exists...")
+
+
+# ================================= Order =================================
+
+    # Order Block
+
 
 
 # ================================= Review =================================

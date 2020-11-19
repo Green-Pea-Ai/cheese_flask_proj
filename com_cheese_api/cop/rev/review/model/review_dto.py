@@ -27,7 +27,7 @@ class ReviewDto(db.Model):
     review_no: int = db.Column(db.Integer, primary_key=True, index=True) # PK
     review_title: str = db.Column(db.String(100))
     review_detail: str = db.Column(db.String(500))
-    user_no = db.Column(db.Integer, db.ForeignKey(UserDto.user_no)) # FK(user_no)
+    # user_no = db.Column(db.Integer, db.ForeignKey(UserDto.user_no)) # FK(user_no)
     cheese_id = db.Column(db.String(30), db.ForeignKey(CheeseDto.cheese_id)) # FK(cheese_id)
 
     # user_id = db.Column(db.String(10), db.ForeignKey(UserDto.user_id)) # FK: 사용안함
@@ -58,7 +58,7 @@ class ReviewDto(db.Model):
             'review_title': self.review_title,
             'review_detail': self.review_detail,
             #'user_id': self.user_id,
-            'user_no': self.user_no,
+            # 'user_no': self.user_no,
             'cheese_id': self.cheese_id
         }
 
