@@ -16,13 +16,16 @@ class UserDto(db.Model):
     __tablename__ = 'users'
     __table_args__ = {'mysql_collate':'utf8_general_ci'}
 
-    user_no: int = db.Column(db.Integer, primary_key= True, index = True)
-    user_id: str = db.Column(db.String(20))
-    password: str = db.Column(db.String(1))
-    gender: int = db.Column(db.Integer)
-    age_group: int = db.Column(db.Integer)
-    cheese_texture: int = db.Column(db.Integer)
-    buy_count: int = db.Column(db.Integer)
+    # user_no: int = db.Column(db.Integer, primary_key= True, index = True)
+    user_id: str = db.Column(db.String(20), primary_key=True, index=True)
+    password: str = db.Column(db.String(5))
+    name: str = db.Column(db.String(5))
+    gender: str = db.Column(db.String(5))
+    age: int = db.Column(db.Integer)
+    phone: str = db.Column(db.String(20))
+    email: str = db.Column(db.String(100))
+    # cheese_texture: int = db.Column(db.Integer)
+    # buy_count: int = db.Column(db.Integer)
 
     # orders = db.relationship('OrderDto', back_populates='user', lazy='dynamic')
     # prices = db.relationship('PriceDto', back_populates='user', lazy='dynamic')
@@ -33,45 +36,46 @@ class UserDto(db.Model):
     # 관계 설정
     #reviews = db.relationship('ReviewDto', back_populates='users')
 
-    def __init__(self, user_no, user_id, password, gender, age_group, cheese_texture, buy_count):
-        self.user_no = user_no
+    def __init__(self, user_id, password, name, gender, age, phone, email):
         self.user_id = user_id
         self.password = password
+        self.name = name
         self.gender = gender
-        self.age_group = age_group
-        self.cheese_texture = cheese_texture
-        self.buy_count = buy_count
+        self.age = age
+        self.phone = phone
+        self.email = email
 
     def __repr__(self):
-        return f'User(user_no={self.user_no}, user_id={self.user_id}, password={self.password}, \
-                    gender = {self.gender}, age_group={self.age_group}, \
-                    cheese_texture={self.cheese_texture}, buy_count={self.buy_count})'
+        return f'User(user_id={self.user_id}, password={self.password}, name={self.name}, \
+                    gender = {self.gender}, age={self.age}, phone={self.phone}, email={self.email})'
 
     def __str__(self):
-        return f'User(user_no={self.user_no}, user_id={self.user_id}, password={self.password}, \
-                    gender = {self.gender}, age_group={self.age_group}, \
-                    cheese_texture={self.cheese_texture}, buy_count={self.buy_count})'
+        return f'User(user_id={self.user_id}, password={self.password}, name={self.name}, \
+                    gender = {self.gender}, age={self.age}, phone={self.phone}, email={self.email})'
 
+    @property
     def json(self):
         return {
-            'user_no' : self.user_no,
+            # 'user_no' : self.user_no,
             'user_id' : self.user_id,
             'password': self.password,
+            'name': self.name,
             'gender': self.gender,
-            'age_group': self.age_group,
-            'cheese_texture': self.cheese_texture,
-            'buy_count': self.buy_count
+            'age': self.age,
+            'phone': self.phone,
+            'email': self.email
         }
 
 # Json 형태로 쓰기 위해 씀!
 class UserVo():
-    user_no: int = 0
+    # user_no: int = 0
     user_id: str = ''
     password: str = ''
-    gender: int = 0
-    age_group: int = 0
-    cheese_texture: int = 0
-    buy_count: int = 0
+    name: str = ''
+    gender: str = ''
+    age: int = 0
+    phone: str = ''
+    email: str = ''
 
 
 # db.init_app(app)
