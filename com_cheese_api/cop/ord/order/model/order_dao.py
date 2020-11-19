@@ -33,6 +33,8 @@ class OrderDao(OrderDto):
 
     @staticmethod
     def save(order):
+        Session = openSession()
+        session = Session()
         session.add(order)
         session.commit()
 

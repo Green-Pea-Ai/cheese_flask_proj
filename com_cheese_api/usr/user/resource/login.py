@@ -11,7 +11,7 @@ class Login(Resource):
 
     @staticmethod
     def post():
-        print('====== access post 요청 받음 ======')
+        print('====== login.py POST(), 로그인 처리 ======')
         parser.add_argument('userId', type=str, required=True, help='user_id field')
         parser.add_argument('password', type=str, required=True, help='password field')
         args = parser.parse_args()
@@ -28,8 +28,8 @@ class Login(Resource):
         data = UserDao.login(user)
         print(f'Login Result : {data}')
 
-        return data[0], 200
+        return print(f'로그인 성공!!! {data[0]}'), 200
 
 
-    def get(self):
-        return {'message': 'Login API Start !!'}
+    # def get(self):
+    #     return {'message': 'Login API Start !!'}

@@ -29,13 +29,15 @@ class Order(Resource):
 
     @staticmethod
     def post():
-        print(f' =========== Order =========== \n')
+        print(f' =========== Order POST()!!! =========== \n')
         body = request.get_json()
         order = OrderDto(**body)
         OrderDao.save(order)
-        user_id = order.user_id
+        # user_id = order.user_id
+        order_no = order.order_no
+        # return {'user_id': str(user_id)}, 200
 
-        return {'user_id': str(user_id)}, 200
+        return {'order_no': str(order_no)}, 200
 
     @staticmethod
     def get(user_id: str):
@@ -51,10 +53,17 @@ class Order(Resource):
             user = OrderDao.find_by_id(user_id)
 
             if user:
+                print(f'======= user =======\n{user}\n')
+                # return jsonify([user.json()])
+                print('===============')
+                # print(user.json())
+
                 return jsonify([user.json])
+                # return json.dumps(user.json())
+                # return {'order': list(map(lambda order: order.json(), OrderDao.find_by_id))}
         except Exception as e:
             print(e)
-            return {'message': 'User not found'}, 404
+            return {'message': 'User GET() Error!!'}, 404
 
     @staticmethod
     def put(user_id: str):

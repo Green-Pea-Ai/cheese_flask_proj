@@ -12,7 +12,7 @@ from com_cheese_api.ext.db import url, db, openSession, engine
 import os
 import json
 
-class UserDto():
+class UserDto(db.Model):
     __tablename__ = 'users'
     __table_args__ = {'mysql_collate':'utf8_general_ci'}
 

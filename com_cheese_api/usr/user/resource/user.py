@@ -65,17 +65,19 @@ class User(Resource):
         print(user_id)
         try:
             print(f'User ID is {user_id}')
-            user = UserDao.find_one(user_id)
+            user = UserDao.find_by_id(user_id)
 
             if user:
-                return jsonify([user.json]), 200
+                # return jsonify([user.json]), 200
+                # GET http://localhost:8080/api/user/1000190
+                return user.json
                 # return json.dumps(user.json()), 200
         except Exception as e:
             print(e)
             return {'message': 'User not found'}, 404
 
     @staticmethod
-    def put(user_id: str):
+    def put():
         """
         서버에서 해당 ID 의 새로운 유저 정보를 받아온다.
         정보를 토대로 해당 ID 유저의 정보를 바꿔서
@@ -89,6 +91,8 @@ class User(Resource):
         parser.add_argument('name', type=str, required=True, help='This is name field')
         parser.add_argument('gender', type=str, required=True, help='This is gender field')
         parser.add_argument('age', type=str, required=True, help='This is age field')
+        parser.add_argument('phone')
+        parser.add_argument('email')
 
         print("argument added")
 
@@ -96,18 +100,26 @@ class User(Resource):
         print(f'User {args["user_id"]} updated')
         print(f'User {args["password"]} updated')
 
-        user = UserDto(args.user_id, args.password, args.name, args.gender, args.age, args.phone, args.email)
+        user = UserDto(args['user_id'],\
+                         args['password'],\
+                         args['name'],\
+                         args['gender'],\
+                         args['age'],\
+                         args['phone'],\
+                         args['email'])
+
         print("User created")
-        UserDao.update(user)
-        data = user.json()
+        UserDao.update(args)
+        # data = user.json()
         
-        return data, 200
+        return args, 200
 
     @staticmethod
     def delete(user_id: str):
         """
         유저 아이디를 받아와 해당 유저를 삭제한다.
         Parameter: 유저 아이디
+        DEL http://localhost:8080/api/user/1000190
         """
         # UserDao.delete(id)
         # print(f'User {id} Deleted')

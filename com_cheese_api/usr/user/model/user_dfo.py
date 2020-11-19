@@ -44,9 +44,11 @@ class UserDfo:
         this = self.fileReader
         this.user = self.new_model(user) # payload
         print(this)
+        print(type(this.user))
 
         print(f'######## 중복값 제거 ##########')
-        this = UserDfo.drop_duplicate(this, 'user_id')
+        this = UserDfo.user_id_drop_duplicate(this, 'user_id')
+
         print(this)
         print(f'######## 중복값 제거 확인 ##########')
 
@@ -57,10 +59,10 @@ class UserDfo:
 
         print(this)
 
-        this.user = pd.merge(this.user, UserDfo.make_name(), left_index = True, right_index= True, how = 'left')
-        this.user = pd.merge(this.user, UserDfo.make_phone(), left_index = True, right_index= True, how = 'left')
-        this.user = pd.merge(this.user, UserDfo.make_email(), left_index = True, right_index= True, how = 'left')
-        this.user.to_csv(os.path.join('com_cheese_api/usr/user/data', 'user_name2.csv'), index=False, encoding='utf-8-sig')
+        this.user = pd.merge(this.user, UserDfo.make_name(), left_index=True, right_index=True, how='left')
+        this.user = pd.merge(this.user, UserDfo.make_phone(), left_index=True, right_index=True, how='left')
+        this.user = pd.merge(this.user, UserDfo.make_email(), left_index=True, right_index=True, how='left')
+        # this.user.to_csv(os.path.join('com_cheese_api/usr/user/data', 'user_name2.csv'), index=False, encoding='utf-8-sig')
 
         print(f'######## test na 체크 ##########')
         print(f'{this.user.isnull().sum()}')
@@ -101,8 +103,8 @@ class UserDfo:
     ####################### 데이터 정제 #######################
 
     @staticmethod
-    def drop_duplicate(this, feature) -> object:
-        this.user = this.user.drop_duplicate(feature)
+    def user_id_drop_duplicate(this, feature) -> object:
+        this.user = this.user.drop_duplicates(feature)
         return this
 
 

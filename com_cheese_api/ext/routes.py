@@ -87,9 +87,9 @@ def initialize_routes(api):
     api.add_resource(CheeseSearch, '/api/cheese/search', '/api/cheese/search/<category>')
 
     # ================================= Order =================================
-    api.add_resource(Order, '/api/order/<order_no>')
+    api.add_resource(Order, '/api/order', '/api/order/<user_id>')
+    api.add_resource(OrderSearch, '/api/order/search/<order_no>')
     api.add_resource(Orders, '/api/orders')
-    api.add_resource(OrderSearch, '/api/search/<order_no>')
     # api.add_resource(OrderBest, '/api/best')
     api.add_resource(GenderBest, '/api/gender_best')
     api.add_resource(AgeBest, '/api/age_best')

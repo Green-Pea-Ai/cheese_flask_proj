@@ -1,4 +1,6 @@
 from com_cheese_api.ext.db import url, db, openSession, engine
+from com_cheese_api.usr.user.model.user_dto import UserDto
+from com_cheese_api.cop.itm.cheese.model.cheese_dto import CheeseDto
 
 from sqlalchemy import func
 from sqlalchemy import ForeignKey
@@ -12,8 +14,8 @@ class OrderDto(db.Model):
     __table_args__ = {'mysql_collate':'utf8_general_ci'}
 
     order_no: int = db.Column(db.Integer, primary_key=True, autoincrement=True, index=True)
-    user_id: str = db.Column(db.String(20))
-    cheese_id: str = db.Column(db.String(30))
+    user_id: str = db.Column(db.String(20), db.ForeignKey(UserDto.user_id)) # FK
+    cheese_id: str = db.Column(db.String(30), db.ForeignKey(CheeseDto.cheese_id)) # FK
     # gender: str = db.Column(db.String(5)), User Table
     # age: int = db.Column(db.Integer), User Table
     # cheese_name: str = db.Column(db.String(100))
@@ -40,7 +42,7 @@ class OrderDto(db.Model):
         return f'User(order_no={self.order_no}, user_id={self.user_id}, \
                     cheese_id={self.cheese_id}, buy_count={self.buy_count}, total_price={self.total_price})'
 
-    @property
+    # @property
     def json(self):
         return {
             'order_no': self.order_no, 
