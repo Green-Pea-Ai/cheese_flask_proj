@@ -122,6 +122,9 @@ class Users(Resource):
     @staticmethod
     def post():
         print(f'[ User Bulk Resource Enter ]')
+
+        user_count = UserDao.count()
+
         if user_count[0] == 0:
             UserDao.bulk()
         else:

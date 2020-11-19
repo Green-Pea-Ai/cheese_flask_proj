@@ -41,7 +41,7 @@ class UserDao(UserDto):
         session.close()
 
     @classmethod
-    def user_count(cls):
+    def count(cls):
         return session.query(func.count(cls.user_id)).one()
 
     @staticmethod
@@ -81,10 +81,6 @@ class UserDao(UserDto):
         db.session.delete(data)
         db.session.commit()
         db.session.close()
-
-    @classmethod
-    def count(cls):
-        return session.query(func.count(cls.user_id)).one()
 
     @classmethod
     def find_all(cls):
