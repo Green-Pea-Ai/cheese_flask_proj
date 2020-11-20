@@ -20,10 +20,10 @@ class ReviewDfo(object):
 
     def review_df(self):
         review_data_frame = pd.read_csv(
-            '/home/bitai/Documents/EMP_Team/EMP_Main/Ai/cheese_flask_proj/data_set/cheese_review_for_analysis.csv',
+            'com_cheese_api/cop/rev/review/data/cheese_review_for_analysis.csv',
             sep=','
         )
-
+        
         return review_data_frame
 
 
