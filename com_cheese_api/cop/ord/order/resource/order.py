@@ -58,8 +58,19 @@ class Order(Resource):
                 print('===============')
                 # print(user.json())
 
-                # return jsonify([user.json])
                 return jsonify([item.json() for item in user])
+                '''
+                [
+                    {
+                        "buy_count": 1,
+                        "cheese_id": "p8",
+                        "order_no": 2,
+                        "total_price": 4600,
+                        "user_id": "1799897"
+                    }
+                ]
+                '''
+                # return jsonify([user.json])
                 # return json.dumps(user.json())
                 # return {'order': list(map(lambda order: order.json(), OrderDao.find_by_id))}
         except Exception as e:
@@ -67,7 +78,7 @@ class Order(Resource):
             return {'message': 'User GET() Error!!'}, 404
 
     @staticmethod
-    def put(user_id: str):
+    def put():
         """
         서버에서 해당 ID 의 새로운 유저 정보를 받아온다.
         정보를 토대로 해당 ID 유저의 정보를 바꿔서
@@ -75,7 +86,7 @@ class Order(Resource):
         parameter: 유저 아이디를 받아온다
         return: 새로운 유저 데이터를 리턴 한다
         """
-        # 주문번호에 대한 주문 정보 수정
+        # 유저이름 혹은 주문번호에 대한 주문 정보 수정
         parser.add_argument('order_no', type=str, required=True, help='This is order_no field')
         parser.add_argument('user_id', type=str, required=True, help='This is user_id field')
         parser.add_argument('cheese_id', type=str, required=True, help='This is cheese_id field')
@@ -88,26 +99,28 @@ class Order(Resource):
         # print(f'User {args["user_id"]} updated')
         # print(f'User {args["password"]} updated')
         # user = OrderDto(args.user_id, args.password, args.gender, args.age_group)
-        # print("user created")
-        # OrderDao.update(user)
-        # data = user.json()
-        # return data, 200
-
+        user = OrderDto(args.order_no, args.user_id, args.cheese_id, args.buy_count, args.total_price)
+        print("user created")
+        OrderDao.update(args)
+        data = user.json()
+        return data, 200
 
     @staticmethod
-    def delete(user_id: str):
+    def delete():
         """
         주문번호에 맞는 데이터를 삭제한다.
         Parameter: 파라미터
         """
         # UserDao.delete(id)
         # print(f'User {id} Deleted')
-        print(f'[ ========= Order DELETE() =========  ]')
+        print(f'[ ========= Order DELETE() ========= ]')
         args = parser.parse_args()
+
+        parmas = json.loads(request.get_data(), encoding='utf-8')
+        OrderDao.delete(parmas['order_no'])
         # print(f'User {args["user_id"]} deleted')
-        print(f'Order delete!!')
+        print(f'\n=======Order delete!!')
         return {'code': 0, 'message': 'SUCCESS'}, 200
-        
 
 
 class Orders(Resource):
@@ -129,6 +142,6 @@ class Orders(Resource):
         data = OrderDao.find_all()
         print(f'type========= {type(data)}')
         return jsonify([item.json for item in data])
-        # 어떨땐 json으로 돌아가고 , json()으로 돌아갈 때도 있음
+        # 어떨땐 json으로 돌아가고, json()으로 돌아갈 때도 있음
         # return json.dumps(jsonify([item.json for item in data])), 200
 

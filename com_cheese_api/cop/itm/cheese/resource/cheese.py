@@ -107,7 +107,6 @@ class Cheese(Resource):
             print('error', e)
             return {'message': 'Not use find_by_cheese()'}, 404
 
-
     @staticmethod
     def put():
         print("=================== Cheese PUT() HEAD ===================\n\n")
@@ -153,7 +152,6 @@ class Cheese(Resource):
         except:
             return {'message': 'update fail!!'}, 500
 
-
         # if args.ranking == cheese.ranking and\
         #     args.category == cheese.category and\
         #     args.brand == cheese.brand and\
@@ -170,7 +168,6 @@ class Cheese(Resource):
         # else:
         #     print(f'Cheese Update Fail!!')
         #     return {'message': 'Cheese not found'}, 404
-
 
     @staticmethod
     def delete():
