@@ -23,7 +23,6 @@ from com_cheese_api.cop.rev.review.resource.review import Review, Reviews
 home = Blueprint('home', __name__, url_prefix='/api')
 
 # ================================= User =================================
-# login_user = Blueprint('login_user', __name__, url_prefix='/api/login')
 user = Blueprint('user', __name__, url_prefix='/api/user')
 users = Blueprint('users', __name__, url_prefix='/api/users')
 login = Blueprint('login', __name__, url_prefix='api/login')

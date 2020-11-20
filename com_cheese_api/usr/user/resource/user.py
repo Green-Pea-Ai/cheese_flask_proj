@@ -52,7 +52,7 @@ class User(Resource):
         UserDao.save(user)
         user_id = user.user_id
 
-        return {'mesasge': 'SUCCESS', 'userId': str(user_id)}, 200
+        return {'mesasge': 'SUCCESS', 'user_id': str(user_id)}, 200
 
     @staticmethod
     def get(user_id: str):

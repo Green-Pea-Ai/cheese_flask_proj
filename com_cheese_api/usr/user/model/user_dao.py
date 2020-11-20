@@ -71,13 +71,13 @@ class UserDao(UserDto):
         db.session.commit()
 
     @classmethod
-    def delete(cls, user_no):
+    def delete(cls, user_id):
         """
         유저의 id 정보 (user_id) 를 가져와
         해당 id를 가진 유저를 데이터베이스에서
         삭제 시켜준다.
         """
-        data = cls.query.get(user_no)
+        data = cls.query.get(user_id)
         db.session.delete(data)
         db.session.commit()
         db.session.close()
@@ -131,9 +131,7 @@ class UserDao(UserDto):
             .filter(cls.user_id.like(user.user_id))\
                 .filter(cls.password.like(user.password))
         df = pd.read_sql(sql.statement, sql.session.bind)
-        print("------ login ------")
         print(json.loads(df.to_json(orient='records')))
-
         return json.loads(df.to_json(orient='records'))
         # return session.query(cls).filter(cls.user_id == user.user_id,
         #         cls.password == user.password).one()
