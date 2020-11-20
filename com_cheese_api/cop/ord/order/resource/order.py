@@ -58,7 +58,8 @@ class Order(Resource):
                 print('===============')
                 # print(user.json())
 
-                return jsonify([user.json])
+                # return jsonify([user.json])
+                return jsonify([item.json() for item in user])
                 # return json.dumps(user.json())
                 # return {'order': list(map(lambda order: order.json(), OrderDao.find_by_id))}
         except Exception as e:
@@ -126,6 +127,8 @@ class Orders(Resource):
     def get():
         print(f'[ ========= Orders GET() =========  ]')
         data = OrderDao.find_all()
+        print(f'type========= {type(data)}')
         return jsonify([item.json for item in data])
+        # 어떨땐 json으로 돌아가고 , json()으로 돌아갈 때도 있음
         # return json.dumps(jsonify([item.json for item in data])), 200
 
