@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import xlrd
-import googlemaps
+# import googlemaps
 import json
 
 '''
@@ -35,8 +35,8 @@ class FileReader:
         print(f'PANDAS VERSION: {pd.__version__}')
         return pd.read_excel(self.new_file(), header = header, usecols = usecols)
 
-    def create_gmaps(self):
-        return googlemaps.Client(key='')
+    # def create_gmaps(self):
+    #     return googlemaps.Client(key='')
 
     def json_load(self):
         return json.load(open(self.new_file(), encoding='UTF-8'))
