@@ -9,9 +9,9 @@ db = SQLAlchemy()
 
 
 config = {
-    'user': 'bitai',
-    'password': '456123',
-    'host': '127.0.0.1',
+    'user': 'cheesepic',
+    'password': 'cheesepic',
+    'host': 'cheesepic.c2izpgxlxdco.ap-northeast-2.rds.amazonaws.com',
     'port': '3306',
     'database': 'com_cheese_api',
     'auth_plugin': 'mysql_native_password'
