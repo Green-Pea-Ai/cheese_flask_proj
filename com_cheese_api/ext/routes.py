@@ -104,15 +104,15 @@ def home_api_error(e):
     logging.exception('An error occurred during home request. %s' % str(e))
     return 'An internal error occurred.', 500
 
-# @user.errorhandler(500)
-# def user_api_error(e):
-#     logging.exception('An error occurred during user request. %s' % str(e))
-#     return 'An internal error occurred.', 500
+@user.errorhandler(500)
+def user_api_error(e):
+    logging.exception('An error occurred during user request. %s' % str(e))
+    return 'An internal error occurred.', 500
 
-# @cheese.errorhandler(500)
-# def cheese_api_error(e):
-#     logging.exception('An error occurred during cheese request. %s' % str(e))
-#     return 'An internal error occurred.', 500
+@cheese.errorhandler(500)
+def cheese_api_error(e):
+    logging.exception('An error occurred during cheese request. %s' % str(e))
+    return 'An internal error occurred.', 500
 
 @cheeses.errorhandler(500)
 def cheeses_api_error(e):

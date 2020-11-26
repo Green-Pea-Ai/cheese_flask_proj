@@ -92,19 +92,6 @@ class OrderDao(OrderDto):
             .group_by(cls.age, cls.cheese_category).order_by(cls.age, func.count(cls.gender).desc().all())
             # .filter(and_(cls.gender.like(gender))).all()
 
-
-
-    # '''
-    # SELECT *
-    # FROM users
-    # WHERE user_id IN (start, end)
-    # '''
-    # # List of users from start to end ?
-    # @classmethod
-    # def find_users_in_category(cls, start, end):
-    #     return session.query(cls)\
-    #                   .filter(cls.user_id.in_([start,end])).all()
-
 # if __name__ == '__main__':
 #     """
 #     데이터 베이스에 모든 유저 정보들을 넣어준다.

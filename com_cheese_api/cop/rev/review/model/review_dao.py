@@ -16,17 +16,6 @@ session = Session()
 
 class ReviewDao(ReviewDto):
 
-    # No value for argument 'review_dfo' 
-    # in classmethod callpylint(no-value-for-parameter)
-    # @classmethod
-    # def bulk(cls, review_dfo):
-    #     dfo = review_dfo.create()
-    #     print("리뷰 데이터 insert!!!")
-    #     print(dfo.head())
-    #     session.bulk_insert_mappings(cls, dfo.to_dict(orient="records"))
-    #     session.commit()
-    #     session.close()
-
     @staticmethod
     def bulk():
         print(f'========Reviews Data Insert!!!========')
