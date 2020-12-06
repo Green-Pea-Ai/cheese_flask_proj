@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from com_cheese_api.ext.db import url, db, openSession
 from com_cheese_api.ext.routes import initialize_routes
@@ -22,6 +22,7 @@ session = Session()
 
 app = Flask(__name__)
 CORS(app, resources={r'/api/*': {"origins": "*"}})
+CORS(app, resources={r'/api/*': {"origins": "http://localhost:3000"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

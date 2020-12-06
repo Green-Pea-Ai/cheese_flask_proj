@@ -1,39 +1,41 @@
 from com_cheese_api.usr.user.model.user_dto import UserDto
 from flask.globals import session
-from com_cheese_api.cop.cht.chatbot.model.chatbot_dto import ChatbotDto
-
+from com_cheese_api.cop.cht.chatbot.model.chatbot_dao import Session
+from com_cheese_api.cop.rec.recommend.model.recommend_dto import RecommendDto
 from pathlib import Path
 from com_cheese_api.ext.db import url, db, openSession, engine
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-from sqlalchemy import funcfilter, and_, or_
+from sqlalchemy import func, and_, or_
 from sqlalchemy.ext.declarative import declarative_base
 
 import os
 import json
 
+
 Session = openSession()
 session = Session()
 
-class ChatbotDao(ChatbotDto):
+
+class RecommendDao(RecommendDto):
 
     @staticmethod
-    def save(chatbot):
-        session.add(chatbot)
+    def save(recommend):
+        session.add(recommend)
         session.commit()
 
     @classmethod
-    def update(cls, chatbot):
-        session.query(cls).filter(cls.chatbot_id == chatbot['chatbot_id'])\
-                                .update({cls.tasty: chatbot['tasty'],\
-                                        cls.texture: chatbot['texture'],\
-                                        cls.user_id: chatbot['user_id']})
+    def update(cls, recommend):
+        session.query(cls).filter(cls.recommend_id == recommend['recommend_id'])\
+                            .update({cls.chooseFood_1: recommend['chooseFood_1'],\
+                                        cls.chooseFood_2: recommend['chooseFood_2'],\
+                                        cls.user_id: recommend['user_id']})
         session.commit()
         session.close()
 
     @staticmethod
     def register(recommend):
-        print("--------- sign up ---------")
+        print("---------- sign up -------------")
         db.session.add(recommend)
         db.session.commit()
 
@@ -60,4 +62,4 @@ class ChatbotDao(ChatbotDto):
         """
         return session.query(cls).filter(cls.user_id.like(f'{user_id}')).first()
 
-        # return session.query(UserDto).filter(UserDto.user_id.like(f'{user_id')).one()
+        # return session.query(UserDto).filter(UserDto.user_id.like(f'{user_id}')).one()
